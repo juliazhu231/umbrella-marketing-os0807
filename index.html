@@ -1,0 +1,2208 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>雨傘王 Marketing OS V2｜Email 對接版</title>
+<style>
+:root{--bg:#f5f6f8;--panel:#fff;--ink:#1a2329;--muted:#6e7780;--line:#e4e8eb;--brand:#b31f2b;--green:#2d7a59;--amber:#9a6717;--red:#b83b3b;--blue:#386d9c;--shadow:0 10px 28px rgba(20,30,38,.07)}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;background:var(--bg);color:var(--ink)}
+.app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
+aside{background:#171d21;color:#fff;padding:24px 18px;position:sticky;top:0;height:100vh}
+.logo{font-weight:900;font-size:21px;line-height:1.25}.logo small{display:block;color:#9ea8ae;font-size:11px;letter-spacing:1.4px;margin-top:7px}
+nav{display:grid;gap:8px;margin-top:28px}
+nav button{background:transparent;border:0;color:#c7ced2;text-align:left;padding:12px 14px;border-radius:11px;font-weight:700;cursor:pointer}
+nav button.active,nav button:hover{background:#2a3237;color:#fff}
+main{padding:28px;max-width:1500px;width:100%;margin:auto}
+.top{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;margin-bottom:20px}
+h1{margin:0 0 6px;font-size:29px}.sub{color:var(--muted)}
+.page{display:none}.page.active{display:block}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow)}
+.label{font-size:12px;color:var(--muted);margin-bottom:7px}.metric{font-size:30px;font-weight:900}.metric small{font-size:12px;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1.4fr .6fr;gap:16px;margin-top:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.progress{height:8px;background:#eceff1;border-radius:99px;overflow:hidden}.progress div{height:100%;background:var(--brand)}
+.pill{display:inline-block;padding:5px 8px;border-radius:999px;font-size:11px;font-weight:800}
+.green{background:#e8f5ee;color:var(--green)}.amber{background:#fff3df;color:var(--amber)}.red{background:#fdecec;color:var(--red)}.blue{background:#eaf3fb;color:var(--blue)}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:900px}
+th,td{padding:10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+th{font-size:12px;color:var(--muted);background:#fafbfc;position:sticky;top:0}
+.tablewrap{overflow:auto;max-height:620px}
+.rank{display:grid;grid-template-columns:28px 1fr auto;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);align-items:center}
+.ranknum{width:24px;height:24px;border-radius:50%;background:#20272c;color:#fff;display:grid;place-items:center;font-size:11px}
+.low{border:1px solid var(--line);border-radius:14px;padding:13px;margin-bottom:10px}
+.lowhead{display:flex;justify-content:space-between;gap:10px}
+.lowgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.lowmini{background:#fafbfc;border-radius:10px;padding:9px}.lowmini b{display:block;margin-top:3px}
+.project{padding:13px 0;border-bottom:1px solid var(--line)}
+.project:last-child{border-bottom:0}
+.month-tabs{display:flex;gap:8px;flex-wrap:wrap}
+.month-tabs button{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 11px;cursor:pointer}
+.month-tabs button.active{background:#20272c;color:#fff}
+.report{white-space:pre-wrap;line-height:1.75;background:#fafbfc;border:1px solid var(--line);border-radius:14px;padding:14px}
+.btn{border:0;border-radius:10px;padding:9px 12px;font-weight:800;cursor:pointer;background:var(--brand);color:#fff}
+.btn-soft{background:#f6e8ea;color:var(--brand)}
+.toolbar{display:flex;gap:10px;align-items:end;flex-wrap:wrap}
+.toolbar input,.toolbar select,.toolbar textarea{border:1px solid var(--line);border-radius:10px;padding:9px 11px;background:#fff}
+.kanban{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.column{background:#eceff1;border-radius:16px;padding:12px;min-height:360px}
+.task-card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:12px;margin-bottom:10px}
+.task-card h4{margin:0 0 7px}.task-meta{display:flex;justify-content:space-between;gap:8px;font-size:11px;color:var(--muted);margin-top:8px}
+.product-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.product-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:15px}
+.product-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.checklist{display:grid;gap:7px;margin-top:12px}.checkitem{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:13px}.subtask-toggle{border:0;cursor:pointer;padding:6px 9px;border-radius:999px;font-size:11px;font-weight:800}.subtask-toggle.done{background:#e8f5ee;color:var(--green)}.subtask-toggle.todo{background:#fdecec;color:var(--red)}
+
+.subtask-main{display:flex;align-items:center;gap:8px;min-width:0;flex:1}
+.subtask-controls{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.subtask-date{border:1px solid var(--line);border-radius:8px;padding:6px 8px;background:#fff;font-size:11px;color:var(--ink)}
+.subtask-date-label{font-size:11px;color:var(--muted);white-space:nowrap}
+.overdue-date{border-color:#d94a55;background:#fff3f4;color:#b83b3b}
+.due-soon-date{border-color:#dda642;background:#fff9eb;color:#8a6117}
+@media(max-width:700px){
+ .checkitem{align-items:flex-start;flex-direction:column}
+ .subtask-controls{width:100%;justify-content:space-between}
+}
+
+.upload-box{border:2px dashed #d7dde1;border-radius:15px;padding:18px;text-align:center;background:#fafbfc}
+.upload-box input{display:none}
+.upload-label{display:inline-block;background:var(--brand);color:#fff;padding:10px 14px;border-radius:10px;font-weight:800;cursor:pointer}
+.notice{background:#eef5fb;color:#315e80;border-radius:12px;padding:12px;font-size:13px;line-height:1.6}
+.form-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.form-row input,.form-row select{width:100%;border:1px solid var(--line);border-radius:10px;padding:9px}
+
+.project-toolbar{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.project-list{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:16px}
+.pm-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:15px}
+.pm-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.pm-title{font-weight:900;font-size:16px}.pm-actions{display:flex;gap:6px;flex-wrap:wrap}
+.icon-btn{border:0;border-radius:9px;padding:7px 9px;cursor:pointer;font-weight:800}
+.icon-btn.edit{background:#eaf3fb;color:var(--blue)}.icon-btn.delete{background:#fdecec;color:var(--red)}
+.attachment-list{display:grid;gap:7px;margin-top:10px}
+
+
+.link-entry-box{border:2px solid #b31f2b;border-radius:14px;padding:12px;background:#fafbfc;margin-top:12px}
+.link-entry-grid{display:grid;grid-template-columns:130px 1fr auto;gap:8px;align-items:end}
+.link-entry-grid label{font-size:11px;color:var(--muted);display:grid;gap:5px}
+.link-entry-grid input,.link-entry-grid select{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px;background:#fff}
+.cloud-section-title{font-size:13px;font-weight:900;margin-bottom:8px}
+.cloud-empty{font-size:12px;color:var(--muted);padding:8px 0}
+@media(max-width:700px){.link-entry-grid{grid-template-columns:1fr}}
+
+
+
+nav button{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.nav-update-dot{display:none;width:9px;height:9px;border-radius:50%;background:#e1222e;box-shadow:0 0 0 3px rgba(225,34,46,.18);flex:0 0 auto}
+.nav-update-dot.show{display:inline-block}
+.confirm-error{display:none;color:var(--red);font-size:12px;margin-top:7px;font-weight:700}
+.confirm-error.show{display:block}
+.confirm-updated{border-color:#e1222e!important;box-shadow:0 0 0 2px rgba(225,34,46,.10)}
+.updated-label{display:inline-block;margin-left:6px;padding:3px 7px;border-radius:999px;background:#fdecec;color:#b83b3b;font-size:10px;font-weight:800}
+.read-btn{background:#eef2f4;color:#34434c}
+
+
+.permission-picker{display:flex;gap:7px;flex-wrap:wrap;margin-top:6px}
+.permission-chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:7px 10px;background:#fff;font-size:12px;cursor:pointer}
+.permission-chip input{width:auto;margin:0;accent-color:var(--brand)}
+.permission-chip:has(input:checked){background:#f6e8ea;border-color:#e1b5ba;color:var(--brand);font-weight:800}
+.permission-summary{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.permission-locked{opacity:.55;pointer-events:none}
+.collab-field{display:none}
+.collab-field.allowed{display:block}
+.collab-response{display:grid;gap:10px;margin-top:12px}
+.collab-response label{font-size:12px;color:var(--muted);display:grid;gap:6px}
+.collab-response input,.collab-response select,.collab-response textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px;background:#fff}
+.collab-response textarea{min-height:90px}
+.collab-view-card{border:1px solid #eadac3;border-radius:14px;padding:14px;background:#fff8f0}
+.email-whitelist{font-size:12px;color:#315e80;background:#eef5fb;border-radius:10px;padding:9px;margin-top:8px}
+
+.confirm-box{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff8f0;margin-top:12px}
+.confirm-title{font-size:14px;font-weight:900;color:#8a5510;margin-bottom:8px}
+.confirm-entry{display:grid;grid-template-columns:1fr 230px 150px auto;gap:8px;align-items:end}
+.confirm-entry label{font-size:11px;color:var(--muted);display:grid;gap:5px}
+.confirm-entry input,.confirm-entry select{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px;background:#fff}
+.confirm-list{display:grid;gap:8px;margin-top:10px}
+.confirm-item{border:1px solid #eadac3;border-radius:12px;padding:11px;background:#fff}
+.confirm-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.confirm-meta{font-size:12px;color:var(--muted);margin-top:4px}
+.confirm-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.confirm-status{border:1px solid var(--line);border-radius:9px;padding:7px 9px;background:#fff}
+.collab-banner{display:none;background:#fff4df;color:#8a5510;border:1px solid #e4c68c;border-radius:12px;padding:12px;margin-bottom:16px;line-height:1.6}
+.collab-mode aside,.collab-mode nav,.collab-mode .top{display:none!important}
+.collab-mode .app{grid-template-columns:1fr}
+.collab-mode main{max-width:900px}
+.collab-mode .page{display:none!important}
+.collab-mode #projects{display:block!important}
+.collab-mode #projects>.cards,.collab-mode #projects>.card>.project-toolbar,.collab-mode #projects .module-resource{display:none!important}
+.collab-mode .pm-card{display:none}
+.collab-mode .pm-card.collab-target{display:block}
+.collab-mode .pm-card.collab-target .pm-actions,
+.collab-mode .pm-card.collab-target .progress,
+.collab-mode .pm-card.collab-target .checklist,
+.collab-mode .pm-card.collab-target .link-entry-box,
+.collab-mode .pm-card.collab-target .cloud-links,
+.collab-mode .pm-card.collab-target .notice,
+.collab-mode .pm-card.collab-target>.sub{display:none!important}
+.collab-mode .confirm-entry,.collab-mode .confirm-actions .owner-only{display:none!important}
+.collab-mode .confirm-item:not(.collab-assignment){display:none!important}
+@media(max-width:900px){.confirm-entry{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.confirm-entry{grid-template-columns:1fr}}
+
+.cloud-links{display:grid;gap:8px;margin-top:12px}
+.cloud-link{display:flex;justify-content:space-between;gap:10px;align-items:center;border:1px solid var(--line);border-radius:11px;padding:10px;background:#fafbfc}
+.cloud-link-info{min-width:0}
+.cloud-link-title{font-weight:800;font-size:13px}
+.cloud-link-url{font-size:11px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:380px}
+.cloud-link-actions{display:flex;gap:6px;flex-shrink:0}
+.cloud-open{background:#eaf3fb;color:var(--blue)}
+.cloud-copy{background:#eef2f4;color:#34434c}
+.cloud-guide{background:#eef5fb;color:#315e80;border-radius:12px;padding:11px;font-size:12px;line-height:1.6;margin-top:10px}
+
+.attachment{display:flex;justify-content:space-between;gap:10px;align-items:center;border-top:1px solid var(--line);padding-top:8px;font-size:12px}
+.attachment-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:280px}
+.file-btn{background:#eef2f4;color:#34434c}
+.pm-modal{position:fixed;inset:0;background:rgba(0,0,0,.48);display:none;align-items:center;justify-content:center;padding:20px;z-index:20}
+.pm-modal.open{display:flex}
+.pm-box{background:#fff;border-radius:20px;padding:22px;width:min(760px,100%);max-height:90vh;overflow:auto}
+.pm-form{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.pm-form label{font-size:12px;color:var(--muted);display:grid;gap:6px}
+.pm-form input,.pm-form select,.pm-form textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;background:#fff}
+.pm-form textarea{min-height:90px}
+.pm-full{grid-column:1/-1}
+.pm-modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:16px}
+.dropzone{border:2px dashed #d7dde1;border-radius:14px;padding:16px;text-align:center;background:#fafbfc}
+.dropzone.drag{border-color:var(--brand);background:#fff3f4}
+@media(max-width:980px){.project-list{grid-template-columns:1fr}}
+@media(max-width:620px){.pm-form{grid-template-columns:1fr}.pm-full{grid-column:auto}}
+
+
+.module-resource{margin-top:16px}.resource-head{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.resource-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}.resource-slot{border:1px solid var(--line);border-radius:13px;padding:12px;background:#fafbfc}.resource-slot b{display:block;margin-bottom:5px}.resource-files{display:grid;gap:7px;margin-top:10px}.resource-file{display:flex;justify-content:space-between;gap:8px;align-items:center;border-top:1px solid var(--line);padding-top:7px;font-size:12px}.threads-toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:end}.threads-toolbar input,.threads-toolbar select{border:1px solid var(--line);border-radius:10px;padding:9px 11px;background:#fff}.multi-filter{display:flex;gap:7px;flex-wrap:wrap;max-width:620px}.check-tag{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:999px;padding:7px 10px;background:#fff;color:var(--ink);cursor:pointer;font-size:12px}.check-tag input{width:auto;margin:0;accent-color:var(--brand)}.check-tag:has(input:checked){background:#f6e8ea;border-color:#e2b8bd;color:var(--brand);font-weight:800}.category-picker{display:flex;gap:7px;flex-wrap:wrap;margin-top:6px}.threads-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;margin-top:16px}.topic-card{border:1px solid var(--line);border-radius:14px;padding:13px;margin-bottom:10px;background:#fff}.topic-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.topic-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.topic-analysis{background:#fafbfc;border-radius:11px;padding:10px;margin-top:10px;font-size:13px;line-height:1.65}.score{font-size:22px;font-weight:900}.week-summary{white-space:pre-wrap;background:#fafbfc;border:1px solid var(--line);border-radius:14px;padding:14px;line-height:1.75}.topic-form{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.topic-form label{font-size:12px;color:var(--muted);display:grid;gap:6px}.topic-form input,.topic-form select,.topic-form textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:9px;background:#fff}.topic-form textarea{min-height:80px}.topic-full{grid-column:1/-1}@media(max-width:980px){.resource-grid{grid-template-columns:repeat(2,1fr)}.threads-grid{grid-template-columns:1fr}}@media(max-width:620px){.resource-grid,.topic-form{grid-template-columns:1fr}.topic-full{grid-column:auto}}
+
+
+.home-task-toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:end}
+.home-task-toolbar input,.home-task-toolbar select{border:1px solid var(--line);border-radius:10px;padding:9px 11px;background:#fff}
+.home-task-groups{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:16px}
+.home-priority-box{border:1px solid var(--line);border-radius:16px;padding:14px;background:#fff}
+.home-priority-title{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:8px}
+.home-task-row{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:start;padding:11px 0;border-top:1px solid var(--line)}
+.home-task-row:first-of-type{border-top:0}
+.home-task-row.completed .home-task-name{text-decoration:line-through;color:var(--muted)}
+.home-task-row input[type="checkbox"]{width:18px;height:18px;accent-color:var(--brand);margin-top:2px}
+.home-task-name{font-weight:800}
+.home-task-note{font-size:12px;color:var(--muted);margin-top:4px}
+.home-task-actions{display:flex;gap:5px}
+.priority-p1{border-left:5px solid #b83b3b}.priority-p2{border-left:5px solid #d58b20}.priority-p3{border-left:5px solid #386d9c}.priority-p4{border-left:5px solid #7b858b}
+.home-empty{padding:16px;color:var(--muted);text-align:center}
+@media(max-width:900px){.home-task-groups{grid-template-columns:1fr}}
+
+@media(max-width:980px){.kanban{grid-template-columns:repeat(2,1fr)}.product-grid{grid-template-columns:1fr}.form-row{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:980px){.app{grid-template-columns:1fr}aside{position:relative;height:auto}nav{grid-template-columns:repeat(3,1fr)}.cards,.grid3{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
+@media(max-width:620px){main{padding:16px}.cards,.grid3{grid-template-columns:1fr}nav{grid-template-columns:repeat(2,1fr)}}
+
+.ops-progress-row{display:grid;grid-template-columns:1fr 110px 145px auto;gap:8px;align-items:center;padding:9px 0;border-top:1px solid var(--line)}
+.ops-progress-input{width:100%;border:1px solid var(--line);border-radius:8px;padding:7px;background:#fff}
+.ops-link-row{display:flex;justify-content:space-between;gap:10px;align-items:center;border-top:1px solid var(--line);padding:9px 0}
+.ops-link-url{font-size:11px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:420px}
+.ops-modal{position:fixed;inset:0;background:rgba(0,0,0,.48);display:none;align-items:center;justify-content:center;padding:20px;z-index:50}
+.ops-modal.open{display:flex}
+.ops-box{background:#fff;border-radius:20px;padding:22px;width:min(760px,100%);max-height:90vh;overflow:auto}
+.ops-form{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.ops-form label{font-size:12px;color:var(--muted);display:grid;gap:6px}
+.ops-form input,.ops-form select,.ops-form textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;background:#fff}
+.ops-form textarea{min-height:110px}
+.ops-full{grid-column:1/-1}
+@media(max-width:700px){.ops-progress-row{grid-template-columns:1fr}.ops-form{grid-template-columns:1fr}.ops-full{grid-column:auto}}
+
+
+.ops-restricted-view{display:none;min-height:100vh;background:var(--bg);padding:32px}
+.ops-restricted-view.open{display:block}
+.ops-restricted-card{max-width:760px;margin:auto}
+.ops-invite-box{border:1px solid #eadac3;border-radius:12px;padding:11px;background:#fff8f0;margin-top:12px}
+.ops-invite-item{border:1px solid var(--line);border-radius:11px;padding:10px;background:#fff;margin-top:8px}
+.ops-invite-meta{font-size:12px;color:var(--muted);margin-top:4px}
+.ops-invite-latest{background:#fff7e8;border:1px solid #ecd09a;border-radius:10px;padding:9px;margin-top:8px;font-size:12px;line-height:1.55}
+.ops-restricted-form{display:grid;gap:12px;margin-top:14px}
+.ops-restricted-form label{display:grid;gap:6px;font-size:12px;color:var(--muted)}
+.ops-restricted-form input,.ops-restricted-form select,.ops-restricted-form textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;background:#fff}
+.ops-restricted-form textarea{min-height:90px;resize:vertical}
+@media(max-width:620px){.ops-restricted-view{padding:16px}}
+
+</style>
+</head>
+<body>
+<div class="app">
+<aside>
+ <div class="logo">雨傘王 Marketing OS<small>BRAND OPERATIONS CENTER</small></div>
+ <nav>
+  <button class="active" data-page="home">首頁</button>
+  <button data-page="tasks">任務中心</button>
+  <button data-page="projects" id="projectsNavBtn"><span>商品頁企劃</span><span id="projectsUpdateDot" class="nav-update-dot" title="有新的對接更新"></span></button>
+  <button data-page="collab">聯名專案</button>
+  <button data-page="content">月度圖文</button>
+  <button data-page="shooting">拍攝與素材</button>
+  <button data-page="store">門市陳列與活動</button>
+  <button data-page="line">LINE 數據</button>
+  <button data-page="report">主管回報</button>
+ </nav>
+</aside>
+<main>
+ <div class="top"><div><h1 id="title">首頁</h1><div class="sub">把 LINE、商品頁、月度企劃與主管回報集中在同一個工作中心。</div></div><div class="pill blue">Prototype 可點擊預覽</div></div>
+
+ <section id="home" class="page active">
+  <div class="cards">
+   <div class="card"><div class="label">未完成任務</div><div class="metric" id="homeOpenCount">0 <small>項</small></div></div>
+   <div class="card"><div class="label">今日完成</div><div class="metric" id="homeDoneCount">0 <small>項</small></div></div>
+   <div class="card"><div class="label">最高優先</div><div class="metric" id="homeUrgentCount">0 <small>項</small></div></div>
+   <div class="card"><div class="label">等待他人</div><div class="metric" id="homeWaitingCount">0 <small>項</small></div></div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+   <div class="project-toolbar">
+    <div>
+     <h2 style="margin:0 0 5px">首頁任務清單</h2>
+     <div class="sub">所有內容皆可編輯；完成後直接打勾，系統會依優先等級自動分類。</div>
+    </div>
+    <button class="btn" onclick="openHomeTaskModal()">＋ 新增首頁任務</button>
+   </div>
+   <div class="home-task-toolbar" style="margin-top:14px">
+    <input id="homeTaskSearch" placeholder="搜尋任務…" oninput="renderHomeTasks()">
+    <select id="homeTaskStatusFilter" onchange="renderHomeTasks()">
+     <option value="">全部狀態</option>
+     <option value="open">未完成</option>
+     <option value="done">已完成</option>
+     <option value="waiting">等待他人</option>
+    </select>
+    <select id="homeTaskLevelFilter" onchange="renderHomeTasks()">
+     <option value="">全部優先級</option>
+     <option value="P1">P1 緊急且重要</option>
+     <option value="P2">P2 重要</option>
+     <option value="P3">P3 一般</option>
+     <option value="P4">P4 可延後</option>
+    </select>
+   </div>
+   <div class="home-task-groups" id="homeTaskGroups"></div>
+  </div>
+
+  <div class="grid2">
+   <div class="card">
+    <h2>工作中心快速摘要</h2>
+    <div class="project"><b>商品頁企劃</b><span class="pill blue" style="float:right">可編輯專案</span><div class="sub">商品規格、主副標、商說頁、素材與上架</div></div>
+    <div class="project"><b>月度圖文</b><span class="pill amber" style="float:right">8 月</span><div class="sub">LINE、EDM、Threads、官網與門市物料</div></div>
+    <div class="project"><b>拍攝與素材</b><span class="pill red" style="float:right">等待 2 項</span><div class="sub">腳本、模特、修圖、交件與尺寸版本</div></div>
+    <div class="project"><b>門市陳列與活動</b><span class="pill green" style="float:right">可新增專案</span><div class="sub">陳列、促銷、物料、教育訓練與巡店改善</div></div>
+   </div>
+   <div class="card">
+    <h2>本週提醒</h2>
+    <div id="homeReminderList"></div>
+   </div>
+  </div>
+
+  <div class="card module-resource">
+   <div class="resource-head">
+    <div><h2 style="margin:0 0 5px">首頁｜檔案與分析區</h2><div class="sub">放置本週重點簡報、工作表、分析報告或參考素材。</div></div>
+   </div>
+   <div class="resource-grid">
+    <div class="resource-slot"><b>📊 簡報</b><span class="sub">PPT／PPTX／PDF</span></div>
+    <div class="resource-slot"><b>📑 表單與數據</b><span class="sub">Excel／CSV</span></div>
+    <div class="resource-slot"><b>📄 分析報告</b><span class="sub">Word／PDF／文字</span></div>
+    <div class="resource-slot"><b>🖼️ 圖片與素材</b><span class="sub">JPG／PNG／WEBP</span></div>
+   </div>
+   <div class="dropzone" style="margin-top:12px">
+    <input id="resource_home" type="file" multiple accept=".csv,.xls,.xlsx,.ppt,.pptx,.pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.webp" onchange="handleModuleFiles('home',event)">
+    <label class="upload-label" for="resource_home">上傳檔案</label>
+    <div class="sub" style="margin-top:7px">資料保存在此瀏覽器；單檔上限 20MB</div>
+   </div>
+   <div id="resourceList_home" class="resource-files"></div>
+  </div>
+ </section>
+
+ <section id="tasks" class="page">
+  <div class="card"><div class="toolbar"><div><h2 style="margin:0 0 5px">任務中心</h2><div class="sub">所有工作依狀態集中管理，不讓臨時交辦與等待事項失蹤。</div></div><button class="btn" onclick="addDemoTask()">＋ 新增任務</button></div></div>
+  <div class="kanban" style="margin-top:16px" id="taskKanban"></div>
+  <div class="card" style="margin-top:16px"><div class="resource-head"><div><h2 style="margin:0 0 5px">Threads／脆每週追蹤</h2><div class="sub">收集與雨傘王、防曬、降溫、下雨、通勤及季節話題相關的熱門內容。</div></div><button class="btn" onclick="openTopicModal()">＋ 新增熱門話題</button></div><div class="threads-toolbar" style="margin-top:14px"><label>週次<input id="threadWeek" type="week" onchange="renderThreads()"></label><label>快速分類（可複選）
+<div id="threadCategoryFilters" class="multi-filter">
+ <label class="check-tag"><input type="checkbox" value="防曬" onchange="renderThreads()">防曬</label>
+ <label class="check-tag"><input type="checkbox" value="降溫" onchange="renderThreads()">降溫</label>
+ <label class="check-tag"><input type="checkbox" value="下雨" onchange="renderThreads()">下雨</label>
+ <label class="check-tag"><input type="checkbox" value="雨傘" onchange="renderThreads()">雨傘</label>
+ <label class="check-tag"><input type="checkbox" value="通勤" onchange="renderThreads()">通勤</label>
+ <label class="check-tag"><input type="checkbox" value="門市" onchange="renderThreads()">門市</label>
+ <label class="check-tag"><input type="checkbox" value="品牌" onchange="renderThreads()">品牌</label>
+ <label class="check-tag"><input type="checkbox" value="其他" onchange="renderThreads()">其他</label>
+</div></label><label>最低熱度<select id="threadScore" onchange="renderThreads()"><option value="0">全部</option><option value="60">60 分以上</option><option value="80">80 分以上</option></select></label><input id="threadSearch" placeholder="搜尋關鍵字…" oninput="renderThreads()"><button class="btn btn-soft" onclick="document.querySelectorAll('#threadCategoryFilters input').forEach(x=>x.checked=false);renderThreads()">清除分類</button><button class="btn btn-soft" onclick="copyThreadsSummary()">複製週報</button></div></div>
+  <div class="threads-grid"><div class="card"><h2>本週熱門話題</h2><div id="threadTopicList"></div></div><div><div class="card"><h2>本週快速分析</h2><div id="threadWeekSummary" class="week-summary"></div></div><div class="card" style="margin-top:16px"><h2>行銷任務轉換</h2><div id="threadActions"></div></div></div></div>
+ <div class="card module-resource"><div class="resource-head"><div><h2 style="margin:0 0 5px">任務中心｜檔案與分析區</h2><div class="sub">上傳簡報、表單、原始數據、分析報告或其他附件。</div></div></div><div class="resource-grid"><div class="resource-slot"><b>📊 簡報</b><span class="sub">PPT／PPTX／PDF</span></div><div class="resource-slot"><b>📑 表單與數據</b><span class="sub">Excel／CSV</span></div><div class="resource-slot"><b>📄 分析報告</b><span class="sub">Word／PDF／文字</span></div><div class="resource-slot"><b>🖼️ 圖片與素材</b><span class="sub">JPG／PNG／WEBP</span></div></div><div class="dropzone" style="margin-top:12px"><input id="resource_tasks" type="file" multiple accept=".csv,.xls,.xlsx,.ppt,.pptx,.pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.webp" onchange="handleModuleFiles('tasks',event)"><label class="upload-label" for="resource_tasks">上傳檔案</label><div class="sub" style="margin-top:7px">資料保存在此瀏覽器；單檔上限 20MB</div></div><div id="resourceList_tasks" class="resource-files"></div></div></section>
+
+<section id="line" class="page">
+  <div class="card">
+   <div class="month-tabs" id="monthTabs"></div>
+  </div>
+  <div class="cards" style="margin-top:16px">
+   <div class="card"><div class="label">完成推播</div><div class="metric" id="sentKpi">—</div></div>
+   <div class="card"><div class="label">成功送達</div><div class="metric" id="deliveredKpi">—</div></div>
+   <div class="card"><div class="label">整體觸及率</div><div class="metric" id="reachKpi">—</div></div>
+   <div class="card"><div class="label">本月總費用</div><div class="metric" id="costKpi">—</div></div>
+  </div>
+  <div class="grid2">
+   <div class="card">
+    <h2>25 家門市明細</h2>
+    <div class="tablewrap"><table><thead><tr><th>#</th><th>代碼</th><th>門市</th><th>推播</th><th>好友數</th><th>成功送達</th><th>曝光</th><th>觸及率</th><th>總費用</th></tr></thead><tbody id="lineRows"></tbody></table></div>
+   </div>
+   <div>
+    <div class="card"><h2>觸及率排行</h2><div id="ranking"></div></div>
+    <div class="card" style="margin-top:16px"><h2>低觸及門市評估</h2><div id="lowList"></div></div>
+   </div>
+  </div>
+ <div class="card module-resource"><div class="resource-head"><div><h2 style="margin:0 0 5px">LINE 數據｜檔案與分析區</h2><div class="sub">上傳簡報、表單、原始數據、分析報告或其他附件。</div></div></div><div class="resource-grid"><div class="resource-slot"><b>📊 簡報</b><span class="sub">PPT／PPTX／PDF</span></div><div class="resource-slot"><b>📑 表單與數據</b><span class="sub">Excel／CSV</span></div><div class="resource-slot"><b>📄 分析報告</b><span class="sub">Word／PDF／文字</span></div><div class="resource-slot"><b>🖼️ 圖片與素材</b><span class="sub">JPG／PNG／WEBP</span></div></div><div class="dropzone" style="margin-top:12px"><input id="resource_line" type="file" multiple accept=".csv,.xls,.xlsx,.ppt,.pptx,.pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.webp" onchange="handleModuleFiles('line',event)"><label class="upload-label" for="resource_line">上傳檔案</label><div class="sub" style="margin-top:7px">資料保存在此瀏覽器；單檔上限 20MB</div></div><div id="resourceList_line" class="resource-files"></div></div></section>
+
+ <section id="projects" class="page">
+  <div id="collabBanner" class="collab-banner"><b>對接人受限模式</b><br>你只能更新被指派事項的狀態，不能編輯或刪除專案其他內容。</div>
+  <div class="cards">
+   <div class="card"><div class="label">專案總數</div><div class="metric" id="pmTotal">0 <small>項</small></div></div>
+   <div class="card"><div class="label">進行中</div><div class="metric" id="pmDoing">0 <small>項</small></div></div>
+   <div class="card"><div class="label">等待他人</div><div class="metric" id="pmWaiting">0 <small>項</small></div></div>
+   <div class="card"><div class="label">已完成</div><div class="metric" id="pmDone">0 <small>項</small></div></div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+   <div class="project-toolbar">
+    <div>
+     <h2 style="margin:0 0 5px">專案管理中心</h2>
+     <div class="sub">可自由建立專案、更新進度與子任務；每張專案卡都能直接貼入多個 Google Sheet、Google 表單、簡報、Canva 或其他雲端連結。</div>
+    </div>
+    <div class="toolbar">
+     <input id="pmSearch" placeholder="搜尋專案…" oninput="renderProjects()">
+     <select id="pmFilter" onchange="renderProjects()">
+      <option value="">全部狀態</option>
+      <option>待開始</option><option>進行中</option><option>等待他人</option><option>已完成</option>
+     </select>
+     <button class="btn" onclick="openProjectModal()">＋ 新增專案</button>
+    </div>
+   </div>
+   <div class="project-list" id="projectList"></div>
+  </div>
+ <div class="card module-resource"><div class="resource-head"><div><h2 style="margin:0 0 5px">專案管理中心｜檔案與分析區</h2><div class="sub">上傳簡報、表單、原始數據、分析報告或其他附件。</div></div></div><div class="resource-grid"><div class="resource-slot"><b>📊 簡報</b><span class="sub">PPT／PPTX／PDF</span></div><div class="resource-slot"><b>📑 表單與數據</b><span class="sub">Excel／CSV</span></div><div class="resource-slot"><b>📄 分析報告</b><span class="sub">Word／PDF／文字</span></div><div class="resource-slot"><b>🖼️ 圖片與素材</b><span class="sub">JPG／PNG／WEBP</span></div></div><div class="dropzone" style="margin-top:12px"><input id="resource_projects" type="file" multiple accept=".csv,.xls,.xlsx,.ppt,.pptx,.pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.webp" onchange="handleModuleFiles('projects',event)"><label class="upload-label" for="resource_projects">上傳檔案</label><div class="sub" style="margin-top:7px">資料保存在此瀏覽器；單檔上限 20MB</div></div><div id="resourceList_projects" class="resource-files"></div></div></section>
+
+ 
+ <section id="collab" class="page">
+  <div class="cards">
+   <div class="card"><div class="label">聯名專案總數</div><div class="metric" id="collabTotal">1 <small>項</small></div></div>
+   <div class="card"><div class="label">進行中</div><div class="metric" id="collabDoing">1 <small>項</small></div></div>
+   <div class="card"><div class="label">等待確認</div><div class="metric" id="collabWaiting">0 <small>項</small></div></div>
+   <div class="card"><div class="label">已完成</div><div class="metric" id="collabDone">0 <small>項</small></div></div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+   <div class="project-toolbar">
+    <div>
+     <h2 style="margin:0 0 5px">聯名專案管理</h2>
+     <div class="sub">管理聯名品牌、授權素材、商品規劃、行銷內容、檔期與合作進度。</div>
+    </div>
+    <div class="toolbar">
+     <input id="collabSearch" placeholder="搜尋聯名專案…" oninput="renderCollabProjects()">
+     <select id="collabFilter" onchange="renderCollabProjects()">
+      <option value="">全部狀態</option>
+      <option>待開始</option><option>進行中</option><option>等待確認</option><option>已完成</option>
+     </select>
+     <button class="btn" onclick="openCollabModal()">＋ 新增聯名專案</button>
+    </div>
+   </div>
+   <div class="project-list" id="collabProjectList"></div>
+  </div>
+
+  <div class="card module-resource">
+   <div class="resource-head">
+    <div><h2 style="margin:0 0 5px">聯名專案｜共用檔案區</h2><div class="sub">上傳授權資料、合作簡報、商品清單、媒體整理、視覺素材與分析報告。</div></div>
+   </div>
+   <div class="resource-grid">
+    <div class="resource-slot"><b>📊 合作簡報</b><span class="sub">PPT／PPTX／PDF</span></div>
+    <div class="resource-slot"><b>📑 商品與檔期表</b><span class="sub">Excel／CSV</span></div>
+    <div class="resource-slot"><b>📄 授權與分析</b><span class="sub">Word／PDF／文字</span></div>
+    <div class="resource-slot"><b>🖼️ 聯名素材</b><span class="sub">JPG／PNG／WEBP</span></div>
+   </div>
+   <div class="dropzone" style="margin-top:12px">
+    <input id="resource_collab" type="file" multiple accept=".csv,.xls,.xlsx,.ppt,.pptx,.pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.webp" onchange="handleModuleFiles('collab',event)">
+    <label class="upload-label" for="resource_collab">上傳聯名共用檔案</label>
+    <div class="sub" style="margin-top:7px">資料保存在此瀏覽器；單檔上限 20MB</div>
+   </div>
+   <div id="resourceList_collab" class="resource-files"></div>
+  </div>
+ </section>
+
+
+<section id="content" class="page">
+  <div class="cards">
+    <div class="card"><div class="label">專案總數</div><div class="metric" id="contentOpsTotal">0 <small>項</small></div></div>
+    <div class="card"><div class="label">進行中</div><div class="metric" id="contentOpsDoing">0 <small>項</small></div></div>
+    <div class="card"><div class="label">等待他人</div><div class="metric" id="contentOpsWaiting">0 <small>項</small></div></div>
+    <div class="card"><div class="label">已完成</div><div class="metric" id="contentOpsDone">0 <small>項</small></div></div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <div class="project-toolbar">
+      <div><h2 style="margin:0 0 5px">月度圖文專案</h2><div class="sub">可新增每月企劃，管理 LINE、EDM、官網、Threads、門市物料等子任務與雲端連結。</div></div>
+      <div class="toolbar">
+        <input id="contentOpsSearch" placeholder="搜尋專案…" oninput="renderOpsModule('content')">
+        <select id="contentOpsFilter" onchange="renderOpsModule('content')">
+          <option value="">全部狀態</option><option>待開始</option><option>進行中</option><option>等待他人</option><option>已完成</option>
+        </select>
+        <button class="btn" onclick="openOpsModal('content')">＋ 新增月度專案</button>
+      </div>
+    </div>
+    <div class="project-list" id="contentOpsList"></div>
+  </div>
+</section>
+
+<section id="shooting" class="page">
+  <div class="cards">
+    <div class="card"><div class="label">專案總數</div><div class="metric" id="shootingOpsTotal">0 <small>項</small></div></div>
+    <div class="card"><div class="label">進行中</div><div class="metric" id="shootingOpsDoing">0 <small>項</small></div></div>
+    <div class="card"><div class="label">等待他人</div><div class="metric" id="shootingOpsWaiting">0 <small>項</small></div></div>
+    <div class="card"><div class="label">已完成</div><div class="metric" id="shootingOpsDone">0 <small>項</small></div></div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <div class="project-toolbar">
+      <div><h2 style="margin:0 0 5px">拍攝與素材專案</h2><div class="sub">可新增拍攝案件，編輯腳本、模特、拍攝、修圖、尺寸輸出等子任務進度，並綁定 Google Drive 或 Canva。</div></div>
+      <div class="toolbar">
+        <input id="shootingOpsSearch" placeholder="搜尋專案…" oninput="renderOpsModule('shooting')">
+        <select id="shootingOpsFilter" onchange="renderOpsModule('shooting')">
+          <option value="">全部狀態</option><option>待開始</option><option>進行中</option><option>等待他人</option><option>已完成</option>
+        </select>
+        <button class="btn" onclick="openOpsModal('shooting')">＋ 新增拍攝專案</button>
+      </div>
+    </div>
+    <div class="project-list" id="shootingOpsList"></div>
+  </div>
+</section>
+
+<section id="store" class="page">
+  <div class="cards">
+    <div class="card"><div class="label">專案總數</div><div class="metric" id="storeOpsTotal">0 <small>項</small></div></div>
+    <div class="card"><div class="label">進行中</div><div class="metric" id="storeOpsDoing">0 <small>項</small></div></div>
+    <div class="card"><div class="label">等待他人</div><div class="metric" id="storeOpsWaiting">0 <small>項</small></div></div>
+    <div class="card"><div class="label">已完成</div><div class="metric" id="storeOpsDone">0 <small>項</small></div></div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <div class="project-toolbar">
+      <div><h2 style="margin:0 0 5px">門市陳列與活動專案</h2><div class="sub">可新增陳列、活動、物料與教育訓練專案；每個專案可管理子任務進度並上傳多個 Google 雲端連結。</div></div>
+      <div class="toolbar">
+        <input id="storeOpsSearch" placeholder="搜尋專案…" oninput="renderOpsModule('store')">
+        <select id="storeOpsFilter" onchange="renderOpsModule('store')">
+          <option value="">全部狀態</option><option>待開始</option><option>進行中</option><option>等待他人</option><option>已完成</option>
+        </select>
+        <button class="btn" onclick="openOpsModal('store')">＋ 新增門市專案</button>
+      </div>
+    </div>
+    <div class="project-list" id="storeOpsList"></div>
+  </div>
+</section>
+<section id="report" class="page">
+  <div class="grid2">
+   <div class="card"><h2>主管月報</h2><div class="report" id="managerReport"></div><button class="btn" onclick="navigator.clipboard.writeText(managerReport.textContent).then(()=>alert('已複製'))" style="margin-top:12px">複製月報</button></div>
+   <div class="card"><h2>本週工作回報</h2><div class="report">【本週完成】
+• LINE 儀表板資料整理
+• 25 家門市名單校正
+• 反向傘門市看板調整
+
+【進行中】
+• 8 月 LINE 推播規劃
+• 反向傘商說頁
+• 月度圖文排程
+
+【待主管確認】
+• 8 月主打商品
+• 主視覺方向
+• 推播日期</div></div>
+  </div>
+ <div class="card module-resource"><div class="resource-head"><div><h2 style="margin:0 0 5px">主管回報｜檔案與分析區</h2><div class="sub">上傳簡報、表單、原始數據、分析報告或其他附件。</div></div></div><div class="resource-grid"><div class="resource-slot"><b>📊 簡報</b><span class="sub">PPT／PPTX／PDF</span></div><div class="resource-slot"><b>📑 表單與數據</b><span class="sub">Excel／CSV</span></div><div class="resource-slot"><b>📄 分析報告</b><span class="sub">Word／PDF／文字</span></div><div class="resource-slot"><b>🖼️ 圖片與素材</b><span class="sub">JPG／PNG／WEBP</span></div></div><div class="dropzone" style="margin-top:12px"><input id="resource_report" type="file" multiple accept=".csv,.xls,.xlsx,.ppt,.pptx,.pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.webp" onchange="handleModuleFiles('report',event)"><label class="upload-label" for="resource_report">上傳檔案</label><div class="sub" style="margin-top:7px">資料保存在此瀏覽器；單檔上限 20MB</div></div><div id="resourceList_report" class="resource-files"></div></div></section>
+</main>
+</div>
+
+<div id="opsModal" class="ops-modal">
+ <div class="ops-box">
+  <h2 id="opsModalTitle">新增專案</h2>
+  <div class="ops-form">
+   <label>專案名稱<input id="opsName" placeholder="例如：2026 年 9 月圖文規劃"></label>
+   <label>類型<input id="opsType" placeholder="例如：月度圖文／拍攝／門市陳列"></label>
+   <label>狀態<select id="opsStatus"><option>待開始</option><option>進行中</option><option>等待他人</option><option>已完成</option></select></label>
+   <label>優先級<select id="opsPriority"><option>高</option><option selected>中</option><option>低</option></select></label>
+   <label>截止日期<input id="opsDate" type="date"></label>
+   <label>負責／協作<input id="opsOwner" placeholder="例如：自己／設計"></label>
+   <label class="ops-full">下一步<input id="opsNext" placeholder="下一個要完成的事項"></label>
+   <label class="ops-full">卡點<input id="opsBlock" placeholder="沒有可留白"></label>
+   <label class="ops-full">子任務（每行一項）<textarea id="opsSubtasks" placeholder="主題規劃&#10;文案&#10;設計&#10;上架"></textarea></label>
+  </div>
+  <div class="pm-modal-actions"><button class="btn btn-soft" onclick="closeOpsModal()">取消</button><button class="btn" onclick="saveOpsProject()">儲存專案</button></div>
+ </div>
+</div>
+
+
+<div id="opsInviteModal" class="ops-modal">
+ <div class="ops-box">
+  <h2>新增 Email 對接</h2>
+  <div class="ops-form">
+   <label>對接專案<input id="opsInviteProjectName" disabled></label>
+   <label>指派範圍<select id="opsInviteTarget"></select></label>
+   <label class="ops-full">對方 Email<input id="opsInviteEmail" type="email" placeholder="name@company.com"></label>
+   <label class="ops-full">允許對方填寫
+    <div class="permission-picker">
+     <label class="permission-chip"><input id="opsPermProgress" type="checkbox" checked>進度 0～100%</label>
+     <label class="permission-chip"><input id="opsPermStatus" type="checkbox" checked>執行狀態</label>
+     <label class="permission-chip"><input id="opsPermDue" type="checkbox" checked>預計完成日</label>
+     <label class="permission-chip"><input id="opsPermMessage" type="checkbox" checked>50 字留言</label>
+     <label class="permission-chip"><input id="opsPermResult" type="checkbox">成果連結</label>
+    </div>
+   </label>
+  </div>
+  <div class="pm-modal-actions">
+   <button class="btn btn-soft" onclick="closeOpsInviteModal()">取消</button>
+   <button class="btn" onclick="sendOpsInvite()">寄送邀請</button>
+  </div>
+ </div>
+</div>
+
+<div id="opsRestrictedView" class="ops-restricted-view">
+ <div class="ops-restricted-card">
+  <div class="collab-banner" style="display:block"><b>對接人受限模式</b><br>你只能填寫被指派的進度與指定欄位。</div>
+  <div id="opsRestrictedContent" class="card">正在載入邀請資料…</div>
+ </div>
+</div>
+
+<script>
+const MARKETING_OS_MAIL_API = "https://script.google.com/macros/s/AKfycbxDQO-ZwLzWbE5xsD4H641gpUhv4V_8W3aRLJpFgw8q1TwNpB9ZcfDpib6YCx268ikzaw/exec";
+let data={"months": ["2026-03", "2026-04", "2026-05", "2026-06", "2026-07"], "stores": [{"no": 1, "code": "A002", "name": "雨傘王_中壢中原", "friends": 16229, "months": {"2026-03": {"sent": true, "delivered": 32149, "impressions": 10164, "cost": 1260.0}, "2026-04": {"sent": true, "delivered": 15995, "impressions": 6746, "cost": 1260.0}, "2026-05": {"sent": false, "delivered": 0, "impressions": 0, "cost": 1260.0}, "2026-06": {"sent": false, "delivered": 0, "impressions": 0, "cost": 1260.0}, "2026-07": {"sent": true, "delivered": 32420, "impressions": 8371, "cost": 1260.0}}}, {"no": 2, "code": "A004", "name": "雨傘王_台北西門", "friends": 12954, "months": {"2026-03": {"sent": true, "delivered": 25792, "impressions": 8436, "cost": 1260.0}, "2026-04": {"sent": true, "delivered": 12845, "impressions": 4642, "cost": 1260.0}, "2026-05": {"sent": true, "delivered": 12839, "impressions": 4538, "cost": 1260.0}, "2026-06": {"sent": true, "delivered": 12865, "impressions": 4202, "cost": 1260.0}, "2026-07": {"sent": true, "delivered": 25882, "impressions": 5460, "cost": 2702.0}}}, {"no": 3, "code": "A007", "name": "雨傘王_台北公館", "friends": 9503, "months": {"2026-03": {"sent": true, "delivered": 18555, "impressions": 5995, "cost": 1365.0}, "2026-04": {"sent": true, "delivered": 9283, "impressions": 3494, "cost": 1260.0}, "2026-05": {"sent": true, "delivered": 9348, "impressions": 3358, "cost": 1260.0}, "2026-06": {"sent": true, "delivered": 9397, "impressions": 3262, "cost": 1260.0}, "2026-07": {"sent": true, "delivered": 18991, "impressions": 5023, "cost": 1973.0}}}, {"no": 4, "code": "A008", "name": "雨傘王_基隆廟口", "friends": 9935, "months": {"2026-03": {"sent": true, "delivered": 19690, "impressions": 8081, "cost": 1260.0}, "2026-04": {"sent": true, "delivered": 9853, "impressions": 4385, "cost": 1260.0}, "2026-05": {"sent": false, "delivered": 0, "impressions": 0, "cost": 1260.0}, "2026-06": {"sent": true, "delivered": 9907, "impressions": 4151, "cost": 1260.0}, "2026-07": {"sent": true, "delivered": 19849, "impressions": 5829, "cost": 2080.0}}}, {"no": 5, "code": "A017", "name": "雨傘王_台北敦南", "friends": 10198, "months": {"2026-03": {"sent": true, "delivered": 20663, "impressions": 6039, "cost": 1260.0}, "2026-04": {"sent": true, "delivered": 10234, "impressions": 4212, "cost": 1260.0}, "2026-05": {"sent": true, "delivered": 10229, "impressions": 3922, "cost": 1260.0}, "2026-06": {"sent": true, "delivered": 10226, "impressions": 3793, "cost": 1260.0}, "2026-07": {"sent": true, "delivered": 20360, "impressions": 4836, "cost": 2147.0}}}, {"no": 6, "code": "A033", "name": "雨傘王_桃園南崁", "friends": 9732, "months": {"2026-03": {"sent": true, "delivered": 19070, "impressions": 6239, "cost": 1365.0}, "2026-04": {"sent": true, "delivered": 9532, "impressions": 4417, "cost": 1260.0}, "2026-05": {"sent": false, "delivered": 0, "impressions": 0, "cost": 1260.0}, "2026-06": {"sent": true, "delivered": 9651, "impressions": 4325, "cost": 1260.0}, "2026-07": {"sent": true, "delivered": 19459, "impressions": 5308, "cost": 2027.0}}}, {"no": 7, "code": "A040", "name": "雨傘王_捷運江子翠", "friends": 7774, "months": {"2026-03": {"sent": true, "delivered": 14806, "impressions": 4791, "cost": 1260.0}, "2026-04": {"sent": true, "delivered": 7423, "impressions": 3553, "cost": 1260.0}, "2026-05": {"sent": false, "delivered": 0, "impressions": 0, "cost": 1260.0}, "2026-06": {"sent": true, "delivered": 7635, "impressions": 3293, "cost": 1260.0}, "2026-07": {"sent": true, "delivered": 15525, "impressions": 4063, "cost": 1603.0}}}, {"no": 8, "code": "A042", "name": "雨傘王_捷運台北車站M5", "friends": 9416, "months": {"2026-03": {"sent": true, "delivered": 17943, "impressions": 7018, "cost": 1365.0}, "2026-04": {"sent": true, "delivered": 8955, "impressions": 3875, "cost": 1365.0}, "2026-05": {"sent": true, "delivered": 9097, "impressions": 3697, "cost": 1260.0}, "2026-06": {"sent": true, "delivered": 9192, "impressions": 3478, "cost": 1260.0}, "2026-07": {"sent": true, "delivered": 18818, "impressions": 5169, "cost": 1930.0}}}, {"no": 9, "code": "A044", "name": "雨傘王_捷運圓山", "friends": 7373, "months": {"2026-03": {"sent": true, "delivered": 13887, "impressions": 4552, "cost": 1260.0}, "2026-04": {"sent": true, "delivered": 6991, "impressions": 3168, "cost": 1468.0}, "2026-05": {"sent": true, "delivered": 7095, "impressions": 3069, "cost": 1260.0}, "2026-06": {"sent": true, "delivered": 7194, "impressions": 2934, "cost": 1260.0}, "2026-07": {"sent": true, "delivered": 14740, "impressions": 3876, "cost": 1510.0}}}, {"no": 10, "code": "A046", "name": "雨傘王_捷運松山", "friends": 4371, "months": {"2026-03": {"sent": true, "delivered": 8262, "impressions": 3345, "cost": 1260.0}, "2026-04": {"sent": true, "delivered": 4172, "impressions": 1916, "cost": 1735.0}, "2026-05": {"sent": true, "delivered": 4226, "impressions": 1882, "cost": 1260.0}, "2026-06": {"sent": true, "delivered": 4272, "impressions": 1723, "cost": 1260.0}, "2026-07": {"sent": true, "delivered": 8736, "impressions": 2664, "cost": 1260.0}}}, {"no": 11, "code": "A047", "name": "雨傘王_捷運頂溪", "friends": 4494, "months": {"2026-03": {"sent": true, "delivered": 7988, "impressions": 3554, "cost": 1260.0}, "2026-04": {"sent": true, "delivered": 4045, "impressions": 1880, "cost": 1677.0}, "2026-05": {"sent": false, "delivered": 0, "impressions": 0, "cost": 1260.0}, "2026-06": {"sent": true, "delivered": 4324, "impressions": 1972, "cost": 1260.0}, "2026-07": {"sent": true, "delivered": 8978, "impressions": 2847, "cost": 1260.0}}}, {"no": 12, "code": "A049", "name": "雨傘王_捷運永春", "friends": 4695, "months": {"2026-03": {"sent": true, "delivered": 8818, "impressions": 3475, "cost": 1260.0}, "2026-04": {"sent": true, "delivered": 4437, "impressions": 1977, "cost": 1851.0}, "2026-05": {"sent": true, "delivered": 4497, "impressions": 1985, "cost": 1260.0}, "2026-06": {"sent": true, "delivered": 4591, "impressions": 1851, "cost": 1260.0}, "2026-07": {"sent": true, "delivered": 9378, "impressions": 2708, "cost": 1260.0}}}, {"no": 13, "code": "A050", "name": "雨傘王_捷運土城", "friends": 3400, "months": {"2026-03": {"sent": true, "delivered": 6500, "impressions": 2367, "cost": 1260.0}, "2026-04": {"sent": true, "delivered": 3274, "impressions": 1409, "cost": 1365.0}, "2026-05": {"sent": false, "delivered": 0, "impressions": 0, "cost": 1260.0}, "2026-06": {"sent": true, "delivered": 3333, "impressions": 1364, "cost": 1260.0}, "2026-07": {"sent": true, "delivered": 6795, "impressions": 1960, "cost": 1260.0}}}, {"no": 14, "code": "A052", "name": "雨傘王_捷運中山二店", "friends": 2551, "months": {"2026-03": {"sent": true, "delivered": 3758, "impressions": 1214, "cost": 1260.0}, "2026-04": {"sent": true, "delivered": 1899, "impressions": 802, "cost": 1260.0}, "2026-05": {"sent": true, "delivered": 2095, "impressions": 918, "cost": 1260.0}, "2026-06": {"sent": true, "delivered": 2275, "impressions": 932, "cost": 1260.0}, "2026-07": {"sent": true, "delivered": 5107, "impressions": 1243, "cost": 1260.0}}}, {"no": 15, "code": "A054", "name": "雨傘王_捷運菜寮", "friends": 1765, "months": {"2026-03": {"sent": true, "delivered": 3492, "impressions": 1221, "cost": 1260.0}, "2026-04": {"sent": true, "delivered": 1766, "impressions": 777, "cost": 1260.0}, "2026-05": {"sent": false, "delivered": 0, "impressions": 0, "cost": 1260.0}, "2026-06": {"sent": true, "delivered": 1894, "impressions": 813, "cost": 1260.0}, "2026-07": {"sent": true, "delivered": 3967, "impressions": 1135, "cost": 1260.0}}}, {"no": 16, "code": "A055", "name": "雨傘王_捷運行天宮", "friends": 3586, "months": {"2026-03": {"sent": true, "delivered": 6344, "impressions": 2399, "cost": 1260.0}, "2026-04": {"sent": true, "delivered": 3209, "impressions": 1421, "cost": 1331.0}, "2026-05": {"sent": true, "delivered": 3321, "impressions": 1455, "cost": 1260.0}, "2026-06": {"sent": true, "delivered": 3427, "impressions": 1410, "cost": 1260.0}, "2026-07": {"sent": true, "delivered": 7173, "impressions": 2195, "cost": 1260.0}}}, {"no": 17, "code": "A056", "name": "雨傘王_捷運公館", "friends": 3095, "months": {"2026-03": {"sent": true, "delivered": 5696, "impressions": 2562, "cost": 1260.0}, "2026-04": {"sent": true, "delivered": 2864, "impressions": 1214, "cost": 1260.0}, "2026-05": {"sent": true, "delivered": 2938, "impressions": 1189, "cost": 1260.0}, "2026-06": {"sent": true, "delivered": 3003, "impressions": 1106, "cost": 1260.0}, "2026-07": {"sent": true, "delivered": 6182, "impressions": 1455, "cost": 1260.0}}}, {"no": 18, "code": "A057", "name": "雨傘王_捷運輔大（新北新莊店）", "friends": 4718, "months": {"2026-03": {"sent": true, "delivered": 9554, "impressions": 3054, "cost": 1260.0}, "2026-04": {"sent": true, "delivered": 4785, "impressions": 2012, "cost": 2006.0}, "2026-05": {"sent": true, "delivered": 4788, "impressions": 2449, "cost": 1260.0}, "2026-06": {"sent": true, "delivered": 4752, "impressions": 1931, "cost": 1260.0}, "2026-07": {"sent": true, "delivered": 9414, "impressions": 2324, "cost": 1260.0}}}, {"no": 19, "code": "A058", "name": "雨傘王_捷運蘆洲", "friends": 2740, "months": {"2026-03": {"sent": true, "delivered": 5074, "impressions": 1900, "cost": 1260.0}, "2026-04": {"sent": true, "delivered": 2557, "impressions": 1115, "cost": 1260.0}, "2026-05": {"sent": false, "delivered": 0, "impressions": 0, "cost": 1260.0}, "2026-06": {"sent": true, "delivered": 2673, "impressions": 1160, "cost": 1260.0}, "2026-07": {"sent": true, "delivered": 5468, "impressions": 1804, "cost": 1260.0}}}, {"no": 20, "code": "A059", "name": "雨傘王_捷運信義安和", "friends": 1691, "months": {"2026-03": {"sent": true, "delivered": 2570, "impressions": 1151, "cost": 840.0}, "2026-04": {"sent": true, "delivered": 1356, "impressions": 673, "cost": 840.0}, "2026-05": {"sent": true, "delivered": 1437, "impressions": 727, "cost": 840.0}, "2026-06": {"sent": true, "delivered": 1514, "impressions": 702, "cost": 840.0}, "2026-07": {"sent": true, "delivered": 3385, "impressions": 1162, "cost": 1260.0}}}, {"no": 21, "code": "A061", "name": "雨傘王_捷運六張犁", "friends": 652, "months": {"2026-03": {"sent": true, "delivered": 1308, "impressions": 648, "cost": 840.0}, "2026-04": {"sent": true, "delivered": 670, "impressions": 333, "cost": 840.0}, "2026-05": {"sent": true, "delivered": 666, "impressions": 313, "cost": 840.0}, "2026-06": {"sent": true, "delivered": 658, "impressions": 282, "cost": 840.0}, "2026-07": {"sent": true, "delivered": 1301, "impressions": 421, "cost": 840.0}}}, {"no": 22, "code": "A063", "name": "雨傘王_捷運景美", "friends": 1047, "months": {"2026-03": {"sent": true, "delivered": 1276, "impressions": 495, "cost": 840.0}, "2026-04": {"sent": true, "delivered": 707, "impressions": 362, "cost": 840.0}, "2026-05": {"sent": true, "delivered": 807, "impressions": 403, "cost": 840.0}, "2026-06": {"sent": true, "delivered": 900, "impressions": 432, "cost": 840.0}, "2026-07": {"sent": true, "delivered": 2100, "impressions": 779, "cost": 840.0}}}, {"no": 23, "code": "A064", "name": "雨傘王_北車M6誠品店", "friends": 524, "months": {"2026-03": {"sent": true, "delivered": 576, "impressions": 427, "cost": 840.0}, "2026-04": {"sent": true, "delivered": 339, "impressions": 189, "cost": 840.0}, "2026-05": {"sent": true, "delivered": 402, "impressions": 21, "cost": 840.0}, "2026-06": {"sent": true, "delivered": 435, "impressions": 126, "cost": 840.0}, "2026-07": {"sent": true, "delivered": 1053, "impressions": 423, "cost": 840.0}}}, {"no": 24, "code": "A065", "name": "雨傘王_捷運板橋", "friends": 2478, "months": {"2026-03": {"sent": true, "delivered": 4110, "impressions": 1477, "cost": 1260.0}, "2026-04": {"sent": true, "delivered": 2099, "impressions": 853, "cost": 1260.0}, "2026-05": {"sent": false, "delivered": 0, "impressions": 0, "cost": 1260.0}, "2026-06": {"sent": true, "delivered": 2306, "impressions": 894, "cost": 1260.0}, "2026-07": {"sent": true, "delivered": 4957, "impressions": 1449, "cost": 1260.0}}}, {"no": 25, "code": "A066", "name": "雨傘王_新莊幸福", "friends": 450, "months": {"2026-03": {"sent": false, "delivered": 0, "impressions": 0, "cost": 0.0}, "2026-04": {"sent": true, "delivered": 58, "impressions": 55, "cost": 0.0}, "2026-05": {"sent": false, "delivered": 0, "impressions": 0, "cost": 0.0}, "2026-06": {"sent": false, "delivered": 0, "impressions": 0, "cost": 0.0}, "2026-07": {"sent": true, "delivered": 905, "impressions": 410, "cost": 840.0}}}]};
+const savedLineData=localStorage.getItem("umbrellaMarketingOSLineData");
+if(savedLineData){try{data=JSON.parse(savedLineData)}catch(e){}}
+let currentMonth=data.months[data.months.length-1];
+
+
+
+let moduleDB=null;function openModuleDb(){return new Promise((resolve,reject)=>{const req=indexedDB.open("UmbrellaMarketingOSModules",1);req.onupgradeneeded=e=>{const db=e.target.result;if(!db.objectStoreNames.contains("files")){const store=db.createObjectStore("files",{keyPath:"id"});store.createIndex("moduleId","moduleId",{unique:false})}};req.onsuccess=e=>{moduleDB=e.target.result;resolve(moduleDB)};req.onerror=()=>reject(req.error)})}async function getModuleFiles(moduleId){if(!moduleDB)await openModuleDb();return new Promise((resolve,reject)=>{const tx=moduleDB.transaction("files","readonly"),req=tx.objectStore("files").index("moduleId").getAll(moduleId);req.onsuccess=()=>resolve(req.result||[]);req.onerror=()=>reject(req.error)})}async function handleModuleFiles(moduleId,event){const files=[...event.target.files];event.target.value="";if(!moduleDB)await openModuleDb();for(const file of files){if(file.size>20*1024*1024){alert(`${file.name} 超過 20MB`);continue}await new Promise((resolve,reject)=>{const tx=moduleDB.transaction("files","readwrite");tx.objectStore("files").put({id:"mf_"+Date.now()+"_"+Math.random().toString(36).slice(2),moduleId,name:file.name,type:file.type,size:file.size,createdAt:new Date().toISOString(),blob:file});tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})}renderModuleFiles(moduleId)}async function renderModuleFiles(moduleId){const root=document.getElementById(`resourceList_${moduleId}`);if(!root)return;const files=await getModuleFiles(moduleId);root.innerHTML=files.length?files.map(f=>`<div class="resource-file"><div>${attachmentIcon(f.name)} ${f.name}<div class="sub">${(f.size/1024/1024).toFixed(2)} MB</div></div><div><button class="icon-btn file-btn" onclick="downloadModuleFile('${f.id}')">下載</button> <button class="icon-btn delete" onclick="deleteModuleFile('${f.id}','${moduleId}')">刪除</button></div></div>`).join(""):'<div class="sub">尚未上傳檔案</div>'}async function downloadModuleFile(id){if(!moduleDB)await openModuleDb();const item=await new Promise((resolve,reject)=>{const tx=moduleDB.transaction("files","readonly"),req=tx.objectStore("files").get(id);req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)});if(!item)return;const url=URL.createObjectURL(item.blob),a=document.createElement("a");a.href=url;a.download=item.name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}async function deleteModuleFile(id,moduleId){if(!moduleDB)await openModuleDb();await new Promise((resolve,reject)=>{const tx=moduleDB.transaction("files","readwrite");tx.objectStore("files").delete(id);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)});renderModuleFiles(moduleId)}function renderAllModuleFiles(){["home","tasks","projects","collab","content","shooting","store","line","report"].forEach(renderModuleFiles)}
+function currentIsoWeek(){const d=new Date(),day=(d.getDay()+6)%7;d.setDate(d.getDate()-day+3);const first=new Date(d.getFullYear(),0,4),diff=d-first,week=1+Math.round(((diff/86400000)-3+((first.getDay()+6)%7))/7);return `${d.getFullYear()}-W${String(week).padStart(2,"0")}`}
+const defaultThreadsTopics=[
+{id:"t1",week:"2026-W32",categories:["防曬","通勤"],title:"男性撐日傘與通勤防曬討論增加",score:88,source:"Threads 熱門觀察",summary:"上班族開始討論男性日傘、怕曬與通勤降溫。",relevance:"BigRed 男性日傘、DARK 系列",angle:"紫外線不挑人；曬退一步，帥進一步。"},
+{id:"t2",week:"2026-W32",categories:["降溫","防曬"],title:"高溫體感與降溫小物分享",score:82,source:"Threads 熱門觀察",summary:"網友分享頸圈、風扇、遮陽傘與降溫方法。",relevance:"冰涼頸圈、夾扇、降溫傘",angle:"不是只有吹風，從遮陽到貼身降溫一次整理。"},
+{id:"t3",week:"2026-W32",categories:["下雨","通勤","雨傘"],title:"午後雷陣雨造成通勤狼狽",score:76,source:"Threads 熱門觀察",summary:"突然下雨、收傘滴水與進捷運的困擾被大量討論。",relevance:"反向傘、扣環易折傘",angle:"收傘不狼狽，濕面收在裡面。"},
+{id:"t4",week:"2026-W31",categories:["雨傘"],title:"大傘面到底適合幾個人",score:69,source:"Threads 使用者討論",summary:"消費者討論 60、68 公分傘面的實際差異。",relevance:"68CM 安全感DARK",angle:"一個人是安全感，兩個人是剛剛好的餘裕。"}
+];
+let threadTopics=JSON.parse(localStorage.getItem("umbrellaThreadsTopicsV2")||"null");
+if(!threadTopics){
+ const oldTopics=JSON.parse(localStorage.getItem("umbrellaThreadsTopicsV1")||"null");
+ threadTopics=(oldTopics||defaultThreadsTopics).map(t=>({...t,categories:Array.isArray(t.categories)?t.categories:(t.category?[t.category]:["其他"])}));
+ localStorage.setItem("umbrellaThreadsTopicsV2",JSON.stringify(threadTopics));
+}
+function selectedThreadCategories(){
+ return [...document.querySelectorAll("#threadCategoryFilters input:checked")].map(x=>x.value);
+}
+function selectedTopicCategories(){
+ return [...document.querySelectorAll("#topicCategoryPicker input:checked")].map(x=>x.value);
+}
+function openTopicModal(){
+ topicWeek.value=threadWeek.value||currentIsoWeek();
+ document.querySelectorAll("#topicCategoryPicker input").forEach(x=>x.checked=false);
+ topicTitle.value="";topicScore.value=70;topicSource.value="";topicSummary.value="";topicRelevance.value="";topicAngle.value="";
+ topicModal.classList.add("open");
+}
+function closeTopicModal(){topicModal.classList.remove("open")}
+function saveTopic(){
+ if(!topicTitle.value.trim()){alert("請輸入話題標題");return}
+ const categories=selectedTopicCategories();
+ if(!categories.length){alert("請至少選擇一個分類");return}
+ threadTopics.unshift({
+  id:"t_"+Date.now(),week:topicWeek.value||currentIsoWeek(),categories,
+  title:topicTitle.value.trim(),score:Math.max(0,Math.min(100,Number(topicScore.value)||0)),
+  source:topicSource.value.trim(),summary:topicSummary.value.trim(),
+  relevance:topicRelevance.value.trim(),angle:topicAngle.value.trim()
+ });
+ localStorage.setItem("umbrellaThreadsTopicsV2",JSON.stringify(threadTopics));
+ closeTopicModal();threadWeek.value=topicWeek.value;renderThreads();
+}
+function deleteTopic(id){
+ threadTopics=threadTopics.filter(x=>x.id!==id);
+ localStorage.setItem("umbrellaThreadsTopicsV2",JSON.stringify(threadTopics));
+ renderThreads();
+}
+function addTopicAsTask(id){
+ const t=threadTopics.find(x=>x.id===id);if(!t)return;
+ taskData.unshift({name:`Threads：${t.title}`,status:"待開始",cat:(t.categories||[]).join("／")||"社群內容",date:"本週",priority:t.score>=80?"高":"中"});
+ renderTasks();alert("已加入任務中心");
+}
+function renderThreads(){
+ if(!document.getElementById("threadTopicList"))return;
+ if(!threadWeek.value)threadWeek.value=currentIsoWeek();
+ const week=threadWeek.value;
+ const selectedCats=selectedThreadCategories();
+ const min=Number(threadScore.value)||0;
+ const q=(threadSearch.value||"").toLowerCase();
+ const list=threadTopics.filter(t=>{
+  const cats=Array.isArray(t.categories)?t.categories:(t.category?[t.category]:[]);
+  const categoryMatch=!selectedCats.length||selectedCats.every(c=>cats.includes(c));
+  return t.week===week&&categoryMatch&&t.score>=min&&(!q||[t.title,t.summary,t.relevance,t.angle,cats.join(" ")].join(" ").toLowerCase().includes(q));
+ }).sort((a,b)=>b.score-a.score);
+ threadTopicList.innerHTML=list.length?list.map(t=>{
+  const cats=Array.isArray(t.categories)?t.categories:(t.category?[t.category]:["其他"]);
+  return `<div class="topic-card"><div class="topic-head"><div><b>${t.title}</b><div class="sub">${t.source||"未填來源"}</div></div><div class="score">${t.score}</div></div><div class="topic-tags">${cats.map(c=>`<span class="pill blue">${c}</span>`).join("")}<span class="pill ${t.score>=80?"red":t.score>=60?"amber":"green"}">${t.score>=80?"高熱度":t.score>=60?"值得觀察":"一般"}</span></div><div class="topic-analysis"><b>摘要：</b>${t.summary||"—"}<br><b>雨傘王關聯：</b>${t.relevance||"—"}<br><b>建議切角：</b>${t.angle||"—"}</div><div style="margin-top:10px"><button class="icon-btn edit" onclick="addTopicAsTask('${t.id}')">轉為任務</button> <button class="icon-btn delete" onclick="deleteTopic('${t.id}')">刪除</button></div></div>`;
+ }).join(""):'<div class="sub">本週尚無符合條件的話題。</div>';
+ const all=threadTopics.filter(t=>t.week===week).sort((a,b)=>b.score-a.score);
+ const avg=all.length?all.reduce((s,t)=>s+t.score,0)/all.length:0;
+ const categories=[...new Set(all.flatMap(t=>Array.isArray(t.categories)?t.categories:(t.category?[t.category]:[])))];
+ const top=all.slice(0,3);
+ const categoryCounts=categories.map(c=>({name:c,count:all.filter(t=>(t.categories||[]).includes(c)).length})).sort((a,b)=>b.count-a.count);
+ threadWeekSummary.textContent=`【${week} Threads／脆週報】
+
+• 收集話題：${all.length} 則
+• 平均熱度：${avg.toFixed(1)} 分
+• 高熱度話題：${all.filter(t=>t.score>=80).length} 則
+• 主要分類：${categoryCounts.slice(0,4).map(x=>`${x.name}（${x.count}）`).join("、")||"尚無資料"}
+
+本週 TOP 3
+${top.map((t,i)=>`${i+1}. ${t.title}（${t.score}分｜${(t.categories||[]).join("＋")}）`).join("\n")||"尚無資料"}
+
+整體建議
+${top.length?`本週可同時結合「${(top[0].categories||[]).join("＋")}」作為複合內容切角，並連結 ${top[0].relevance||"相關商品"}。`:"先收集本週話題後再進行分析。"}`;
+ threadActions.innerHTML=top.length?top.map(t=>`<div class="project"><b>${t.title}</b><span class="pill ${t.score>=80?"red":"amber"}" style="float:right">${t.score}</span><div class="topic-tags">${(t.categories||[]).map(c=>`<span class="pill blue">${c}</span>`).join("")}</div><div class="sub">${t.angle||"尚未設定行銷切角"}</div><button class="icon-btn edit" style="margin-top:8px" onclick="addTopicAsTask('${t.id}')">加入本週任務</button></div>`).join(""):'<div class="sub">尚無可轉換的行銷任務。</div>';
+}
+function copyThreadsSummary(){navigator.clipboard.writeText(threadWeekSummary.textContent).then(()=>alert("Threads 週報已複製"))}
+
+
+
+
+const defaultCollabProjects=[
+ {
+  id:"c1",
+  name:"吉伊卡哇聯名",
+  type:"商品聯名",
+  status:"進行中",
+  priority:"高",
+  date:"",
+  progress:20,
+  goal:"整理吉伊卡哇聯名市場資訊、商品方向、媒體聲量與合作切角，建立後續聯名企劃基礎。",
+  next:"整理目前市場上的吉伊卡哇聯名案例、媒體報導與商品類型。",
+  block:"待確認實際授權範圍、合作形式與檔期。",
+  subtasks:[
+   "市場聯名案例蒐集",
+   "媒體報導與熱度整理",
+   "適合雨傘王的商品方向",
+   "聯名主題與視覺切角",
+   "合作簡報",
+   "檔期與通路規劃"
+  ]
+ }
+];
+let collabProjects=JSON.parse(localStorage.getItem("umbrellaCollabProjectsV1")||"null")||defaultCollabProjects;
+collabProjects=collabProjects.map(p=>({
+ ...p,
+ subtasks:(p.subtasks||[]).map((s,i)=>typeof s==="string"?{text:s,completed:i<Math.round((p.subtasks.length||1)*(p.progress||0)/100),dueDate:""}:{...s,dueDate:s.dueDate||""})
+}));
+let editingCollabId=null;
+
+function saveCollabState(){
+ localStorage.setItem("umbrellaCollabProjectsV1",JSON.stringify(collabProjects));
+}
+function openCollabModal(id=null){
+ editingCollabId=id;
+ const p=id?collabProjects.find(x=>x.id===id):null;
+ collabModalTitle.textContent=p?"編輯聯名專案":"新增聯名專案";
+ collabName.value=p?.name||"";
+ collabType.value=p?.type||"商品聯名";
+ collabStatus.value=p?.status||"待開始";
+ collabPriority.value=p?.priority||"中";
+ collabDate.value=p?.date||"";
+ collabProgress.value=p?.progress??0;
+ collabGoal.value=p?.goal||"";
+ collabNext.value=p?.next||"";
+ collabBlock.value=p?.block||"";
+ collabSubtasks.value=(p?.subtasks||[]).map(s=>typeof s==="string"?s:s.text).join("\n");
+ collabModal.classList.add("open");
+}
+function closeCollabModal(){collabModal.classList.remove("open")}
+function saveCollabProject(){
+ const name=collabName.value.trim();
+ if(!name){alert("請輸入聯名名稱");return}
+ const old=editingCollabId?collabProjects.find(x=>x.id===editingCollabId):null;
+ const obj={
+  id:editingCollabId||("c_"+Date.now()),
+  name,type:collabType.value,status:collabStatus.value,
+  priority:collabPriority.value,date:collabDate.value,
+  progress:Math.max(0,Math.min(100,Number(collabProgress.value)||0)),
+  goal:collabGoal.value.trim(),next:collabNext.value.trim(),
+  block:collabBlock.value.trim(),
+  subtasks:collabSubtasks.value.split("\n").map(x=>x.trim()).filter(Boolean).map(text=>{
+   const oldItem=(old?.subtasks||[]).find(s=>(typeof s==="string"?s:s.text)===text);
+   return {text,completed:typeof oldItem==="object"?!!oldItem.completed:false,dueDate:typeof oldItem==="object"?(oldItem.dueDate||""):""};
+  })
+ };
+ if(editingCollabId){
+  const idx=collabProjects.findIndex(x=>x.id===editingCollabId);
+  collabProjects[idx]=obj;
+ }else collabProjects.unshift(obj);
+ saveCollabState();closeCollabModal();renderCollabProjects();
+}
+async function deleteCollabProject(id){
+ const p=collabProjects.find(x=>x.id===id);
+ if(!confirm(`確定刪除「${p?.name||"這個聯名專案"}」及全部附件嗎？`))return;
+ await deleteProjectAttachments("collab_"+id);
+ collabProjects=collabProjects.filter(x=>x.id!==id);
+ saveCollabState();renderCollabProjects();
+}
+function handleCollabFiles(id,event){
+ addAttachments("collab_"+id,[...event.target.files]);
+ event.target.value="";
+ setTimeout(renderCollabProjects,200);
+}
+
+function toggleCollabSubtask(projectId,index){
+ const project=collabProjects.find(x=>x.id===projectId);if(!project)return;
+ const item=project.subtasks?.[index];if(!item)return;
+ if(typeof item==="string"){
+  project.subtasks[index]={text:item,completed:true,dueDate:""};
+ }else{
+  item.completed=!item.completed;
+ }
+ const total=project.subtasks.length||1;
+ const completed=project.subtasks.filter(s=>typeof s==="object"&&s.completed).length;
+ project.progress=Math.round(completed/total*100);
+ if(project.progress===100)project.status="已完成";
+ else if(project.status==="已完成")project.status="進行中";
+ saveCollabState();renderCollabProjects();
+}
+
+async function renderCollabProjects(){
+ const root=document.getElementById("collabProjectList");if(!root)return;
+ const q=(collabSearch.value||"").toLowerCase();
+ const f=collabFilter.value||"";
+ const list=collabProjects.filter(p=>(!f||p.status===f)&&(!q||[p.name,p.type,p.goal,p.next].join(" ").toLowerCase().includes(q)));
+ collabTotal.innerHTML=`${collabProjects.length} <small>項</small>`;
+ collabDoing.innerHTML=`${collabProjects.filter(p=>p.status==="進行中").length} <small>項</small>`;
+ collabWaiting.innerHTML=`${collabProjects.filter(p=>p.status==="等待確認").length} <small>項</small>`;
+ collabDone.innerHTML=`${collabProjects.filter(p=>p.status==="已完成").length} <small>項</small>`;
+ const cards=[];
+ for(const p of list){
+  const atts=await getAttachments("collab_"+p.id);
+  cards.push(`<div class="pm-card ${window.collabContext&&window.collabContext.projectId===p.id?"collab-target":""}">
+   <div class="pm-head">
+    <div><div class="pm-title">${p.name}</div><div class="sub">${p.type}｜檔期 ${p.date||"未定"}</div></div>
+    <div class="pm-actions">
+     <button class="icon-btn edit" onclick="openCollabModal('${p.id}')">編輯</button>
+     <button class="icon-btn delete" onclick="deleteCollabProject('${p.id}')">刪除</button>
+    </div>
+   </div>
+   <div style="margin-top:10px"><span class="pill ${pmPill(p.status==="等待確認"?"等待他人":p.status)}">${p.status}</span> <span class="pill ${priorityPill(p.priority)}">${p.priority}優先</span></div>
+   <div class="progress" style="margin-top:10px"><div style="width:${p.progress}%"></div></div>
+   <div class="sub" style="margin-top:6px">進度 ${p.progress}%</div>
+   ${p.goal?`<div class="topic-analysis" style="margin-top:10px"><b>合作目標：</b>${p.goal}</div>`:""}
+   <div class="sub" style="margin-top:8px"><b>下一步：</b>${p.next||"尚未設定"}</div>
+   ${p.block?`<div class="notice" style="margin-top:10px"><b>待確認：</b>${p.block}</div>`:""}
+   <div class="checklist">
+    ${(p.subtasks||[]).map((s,i)=>{
+     const item=typeof s==="string"?{text:s,completed:false}:s;
+     return `<div class="checkitem">
+      <div class="subtask-main"><span>${item.text}</span></div>
+      <div class="subtask-controls">
+       <span class="subtask-date-label">預計完成</span>
+       <input class="subtask-date ${subtaskDateClass(item)}" type="date" value="${item.dueDate||""}" onchange="updateCollabSubtaskDate('${p.id}',${i},this.value)">
+       <button class="subtask-toggle ${item.completed?"done":"todo"}" onclick="toggleCollabSubtask('${p.id}',${i})">${item.completed?"完成":"待處理"}</button>
+      </div>
+     </div>`;
+    }).join("")}
+   </div>
+   <div class="dropzone" style="margin-top:12px">
+    <input id="collab_file_${p.id}" type="file" multiple accept=".csv,.xls,.xlsx,.ppt,.pptx,.pdf,.doc,.docx,.jpg,.jpeg,.png,.webp" onchange="handleCollabFiles('${p.id}',event)">
+    <label class="upload-label" for="collab_file_${p.id}">上傳此聯名專案附件</label>
+    <div class="sub" style="margin-top:7px">可上傳合作簡報、授權資料、商品表、媒體整理與視覺素材</div>
+   </div>
+   <div class="attachment-list">
+    ${atts.length?atts.map(a=>`<div class="attachment"><div class="attachment-name">${attachmentIcon(a.name)} ${a.name}<div class="sub">${(a.size/1024/1024).toFixed(2)} MB</div></div><div><button class="icon-btn file-btn" onclick="downloadAttachment('${a.id}')">下載</button> <button class="icon-btn delete" onclick="deleteAttachment('${a.id}').then(renderCollabProjects)">刪除</button></div></div>`).join(""):`<div class="sub">尚未上傳附件</div>`}
+   </div>
+  </div>`);
+ }
+ root.innerHTML=cards.join("")||'<div class="card">沒有符合條件的聯名專案。</div>';
+}
+
+const defaultHomeTasks=[
+ {id:"h1",name:"完成摺疊扣環反向傘商說頁",level:"P1",state:"open",date:"2026-08-08",module:"商品頁企劃",note:"完成主副標、功能架構、檢測註記與圖片順序",completedAt:""},
+ {id:"h2",name:"確認門市看板最終稿",level:"P1",state:"waiting",date:"2026-08-07",module:"門市陳列與活動",note:"等待設計確認反向、扣環、防潑水 icon",completedAt:""},
+ {id:"h3",name:"完成 8 月圖文排程",level:"P2",state:"open",date:"2026-08-10",module:"月度圖文",note:"LINE、Threads、EDM、官網與門市 POP",completedAt:""},
+ {id:"h4",name:"整理 Threads 本週熱門話題",level:"P2",state:"open",date:"2026-08-09",module:"任務中心",note:"整理防曬、降溫、下雨與通勤切角",completedAt:""},
+ {id:"h5",name:"冰涼頸圈商品頁歸檔",level:"P3",state:"done",date:"2026-08-03",module:"商品頁企劃",note:"確認最終文案與注意事項",completedAt:"2026-08-05"}
+];
+let homeTasks=JSON.parse(localStorage.getItem("umbrellaHomeTasksV1")||"null")||defaultHomeTasks;
+let editingHomeTaskId=null;
+const homePriorityMeta={
+ P1:{title:"P1 緊急且重要",desc:"需優先處理，會影響時程或交付",cls:"priority-p1",pill:"red"},
+ P2:{title:"P2 重要",desc:"本週核心成果，完成後能推動專案",cls:"priority-p2",pill:"amber"},
+ P3:{title:"P3 一般",desc:"依排程完成，避免累積",cls:"priority-p3",pill:"blue"},
+ P4:{title:"P4 可延後",desc:"時間允許再處理",cls:"priority-p4",pill:"green"}
+};
+function saveHomeTasks(){
+ localStorage.setItem("umbrellaHomeTasksV1",JSON.stringify(homeTasks));
+}
+function openHomeTaskModal(id=null){
+ editingHomeTaskId=id;
+ const t=id?homeTasks.find(x=>x.id===id):null;
+ homeTaskModalTitle.textContent=t?"編輯首頁任務":"新增首頁任務";
+ homeTaskName.value=t?.name||"";
+ homeTaskLevel.value=t?.level||"P2";
+ homeTaskState.value=t?.state||"open";
+ homeTaskDate.value=t?.date||"";
+ homeTaskModule.value=t?.module||"其他";
+ homeTaskNote.value=t?.note||"";
+ homeTaskModal.classList.add("open");
+}
+function closeHomeTaskModal(){homeTaskModal.classList.remove("open")}
+function saveHomeTask(){
+ const name=homeTaskName.value.trim();
+ if(!name){alert("請輸入任務名稱");return}
+ const old=editingHomeTaskId?homeTasks.find(x=>x.id===editingHomeTaskId):null;
+ const state=homeTaskState.value;
+ const obj={
+  id:editingHomeTaskId||("h_"+Date.now()),name,level:homeTaskLevel.value,state,
+  date:homeTaskDate.value,module:homeTaskModule.value,note:homeTaskNote.value.trim(),
+  completedAt:state==="done"?(old?.completedAt||new Date().toISOString().slice(0,10)):""
+ };
+ if(editingHomeTaskId){
+  const idx=homeTasks.findIndex(x=>x.id===editingHomeTaskId);homeTasks[idx]=obj;
+ }else homeTasks.unshift(obj);
+ saveHomeTasks();closeHomeTaskModal();renderHomeTasks();
+}
+function toggleHomeTask(id,checked){
+ const t=homeTasks.find(x=>x.id===id);if(!t)return;
+ t.state=checked?"done":"open";
+ t.completedAt=checked?new Date().toISOString().slice(0,10):"";
+ saveHomeTasks();renderHomeTasks();
+}
+function deleteHomeTask(id){
+ const t=homeTasks.find(x=>x.id===id);
+ if(!confirm(`確定刪除「${t?.name||"這個任務"}」嗎？`))return;
+ homeTasks=homeTasks.filter(x=>x.id!==id);
+ saveHomeTasks();renderHomeTasks();
+}
+function renderHomeTasks(){
+ const root=document.getElementById("homeTaskGroups");if(!root)return;
+ const q=(homeTaskSearch.value||"").toLowerCase();
+ const sf=homeTaskStatusFilter.value||"";
+ const lf=homeTaskLevelFilter.value||"";
+ const list=homeTasks.filter(t=>{
+  const stateMatch=!sf||t.state===sf;
+  const levelMatch=!lf||t.level===lf;
+  const text=[t.name,t.module,t.note].join(" ").toLowerCase();
+  return stateMatch&&levelMatch&&(!q||text.includes(q));
+ }).sort((a,b)=>{
+  const order={P1:1,P2:2,P3:3,P4:4};
+  if(a.state==="done"&&b.state!=="done")return 1;
+  if(a.state!=="done"&&b.state==="done")return -1;
+  return order[a.level]-order[b.level] || String(a.date||"9999").localeCompare(String(b.date||"9999"));
+ });
+ const today=new Date().toISOString().slice(0,10);
+ homeOpenCount.innerHTML=`${homeTasks.filter(t=>t.state!=="done").length} <small>項</small>`;
+ homeDoneCount.innerHTML=`${homeTasks.filter(t=>t.completedAt===today).length} <small>項</small>`;
+ homeUrgentCount.innerHTML=`${homeTasks.filter(t=>t.level==="P1"&&t.state!=="done").length} <small>項</small>`;
+ homeWaitingCount.innerHTML=`${homeTasks.filter(t=>t.state==="waiting").length} <small>項</small>`;
+ root.innerHTML=["P1","P2","P3","P4"].map(level=>{
+  const meta=homePriorityMeta[level];
+  const tasks=list.filter(t=>t.level===level);
+  return `<div class="home-priority-box ${meta.cls}">
+   <div class="home-priority-title"><div><b>${meta.title}</b><div class="sub">${meta.desc}</div></div><span class="pill ${meta.pill}">${tasks.length} 項</span></div>
+   ${tasks.length?tasks.map(t=>`<div class="home-task-row ${t.state==="done"?"completed":""}">
+    <input type="checkbox" ${t.state==="done"?"checked":""} onchange="toggleHomeTask('${t.id}',this.checked)">
+    <div>
+     <div class="home-task-name">${t.name}</div>
+     <div class="home-task-note">${t.module}｜截止 ${t.date||"未定"}${t.state==="waiting"?"｜等待他人":""}</div>
+     ${t.note?`<div class="home-task-note">${t.note}</div>`:""}
+    </div>
+    <div class="home-task-actions">
+     <button class="icon-btn edit" onclick="openHomeTaskModal('${t.id}')">編輯</button>
+     <button class="icon-btn delete" onclick="deleteHomeTask('${t.id}')">刪除</button>
+    </div>
+   </div>`).join(""):`<div class="home-empty">目前沒有此等級的任務</div>`}
+  </div>`;
+ }).join("");
+ const reminders=homeTasks.filter(t=>t.state!=="done").sort((a,b)=>{
+  const order={P1:1,P2:2,P3:3,P4:4};return order[a.level]-order[b.level];
+ }).slice(0,5);
+ homeReminderList.innerHTML=reminders.length?reminders.map(t=>`<div class="project"><b>${t.name}</b><span class="pill ${homePriorityMeta[t.level].pill}" style="float:right">${t.level}</span><div class="sub">${t.date||"未定"}｜${t.state==="waiting"?"等待他人":"待處理"}</div></div>`).join(""):'<div class="sub">目前沒有待處理任務。</div>';
+}
+
+const defaultStoreProjects=[
+ {id:"s1",name:"反向傘門市陳列推廣",type:"門市陳列",location:"全台門市",status:"等待他人",priority:"高",date:"2026-08-15",progress:68,owner:"自己／設計",next:"確認功能 icon、品名與輸出尺寸",block:"等待設計最終稿",sheetUrl:"",formUrl:"",cloudUrl:"",subtasks:["看板資訊架構","反向／扣環／防潑水 icon","陳列示意","門市執行回傳"]},
+ {id:"s2",name:"舊傘換新活動",type:"促銷活動",location:"全台直營門市",status:"進行中",priority:"中",date:"2026-12-31",progress:70,owner:"自己／門市",next:"整理各店執行情況與消費者回饋",block:"",subtasks:["活動規則","門市物料","教育話術","成效追蹤"]},
+ {id:"s3",name:"夏季新品門市陳列",type:"門市陳列",location:"重點門市",status:"進行中",priority:"中",date:"2026-08-20",progress:45,owner:"自己／設計",next:"完成風扇、墨鏡、MINI 包陳列示意",block:"等待部分商品素材",subtasks:["桌面分區","風扇展示","墨鏡鏡面區","小包與附件陳列"]},
+ {id:"s4",name:"新品門市教育訓練",type:"教育訓練",location:"全台門市",status:"待開始",priority:"中",date:"2026-08-25",progress:10,owner:"自己",next:"整理新品賣點與常見問題",block:"",subtasks:["商品規格","銷售話術","常見問題","教育文件發送"]}
+];
+let storeProjects=JSON.parse(localStorage.getItem("umbrellaStoreProjectsV1")||"null")||defaultStoreProjects;
+storeProjects=storeProjects.map(p=>({
+ ...p,
+ subtasks:(p.subtasks||[]).map((s,i)=>typeof s==="string"?{text:s,completed:i<Math.round((p.subtasks.length||1)*(p.progress||0)/100),dueDate:""}:{...s,dueDate:s.dueDate||""})
+}));
+let editingStoreId=null;
+
+function saveStoreState(){
+ localStorage.setItem("umbrellaStoreProjectsV1",JSON.stringify(storeProjects));
+}
+function openStoreModal(id=null){
+ editingStoreId=id;
+ const p=id?storeProjects.find(x=>x.id===id):null;
+ storeModalTitle.textContent=p?"編輯門市專案":"新增門市專案";
+ storeName.value=p?.name||"";
+ storeType.value=p?.type||"門市陳列";
+ storeLocation.value=p?.location||"";
+ storeStatus.value=p?.status||"待開始";
+ storePriority.value=p?.priority||"中";
+ storeDate.value=p?.date||"";
+ storeProgress.value=p?.progress??0;
+ storeOwner.value=p?.owner||"";
+ storeNext.value=p?.next||"";
+ storeBlock.value=p?.block||"";
+ storeSubtasks.value=(p?.subtasks||[]).map(s=>typeof s==="string"?s:s.text).join("\n");
+ storeModal.classList.add("open");
+}
+function closeStoreModal(){storeModal.classList.remove("open")}
+function saveStoreProject(){
+ const name=storeName.value.trim();
+ if(!name){alert("請輸入專案名稱");return}
+ const old=editingStoreId?storeProjects.find(x=>x.id===editingStoreId):null;
+ const obj={
+  id:editingStoreId||("s_"+Date.now()),name,type:storeType.value,
+  location:storeLocation.value.trim(),status:storeStatus.value,
+  priority:storePriority.value,date:storeDate.value,
+  progress:Math.max(0,Math.min(100,Number(storeProgress.value)||0)),
+  owner:storeOwner.value.trim(),next:storeNext.value.trim(),
+  block:storeBlock.value.trim(),
+  subtasks:storeSubtasks.value.split("\n").map(x=>x.trim()).filter(Boolean).map(text=>{
+   const oldItem=(old?.subtasks||[]).find(s=>(typeof s==="string"?s:s.text)===text);
+   return {text,completed:typeof oldItem==="object"?!!oldItem.completed:false,dueDate:typeof oldItem==="object"?(oldItem.dueDate||""):""};
+  })
+ };
+ if(editingStoreId){
+  const idx=storeProjects.findIndex(x=>x.id===editingStoreId);
+  storeProjects[idx]=obj;
+ }else storeProjects.unshift(obj);
+ saveStoreState();closeStoreModal();renderStoreProjects();
+}
+async function deleteStoreProject(id){
+ const p=storeProjects.find(x=>x.id===id);
+ if(!confirm(`確定刪除「${p?.name||"這個門市專案"}」及全部附件嗎？`))return;
+ await deleteProjectAttachments("store_"+id);
+ storeProjects=storeProjects.filter(x=>x.id!==id);
+ saveStoreState();renderStoreProjects();
+}
+function handleStoreProjectFiles(id,event){
+ addAttachments("store_"+id,[...event.target.files]);
+ event.target.value="";
+ setTimeout(renderStoreProjects,200);
+}
+
+function toggleStoreSubtask(projectId,index){
+ const project=storeProjects.find(x=>x.id===projectId);if(!project)return;
+ const item=project.subtasks?.[index];if(!item)return;
+ if(typeof item==="string")project.subtasks[index]={text:item,completed:true,dueDate:""};
+ else item.completed=!item.completed;
+ const total=project.subtasks.length||1;
+ const completed=project.subtasks.filter(s=>typeof s==="object"&&s.completed).length;
+ project.progress=Math.round(completed/total*100);
+ if(project.progress===100)project.status="已完成";
+ else if(project.status==="已完成")project.status="進行中";
+ saveStoreState();renderStoreProjects();
+}
+
+async function renderStoreProjects(){
+ const root=document.getElementById("storeProjectList");if(!root)return;
+ const q=(storeSearch.value||"").toLowerCase();
+ const f=storeFilter.value||"";
+ const list=storeProjects.filter(p=>(!f||p.status===f)&&(!q||[p.name,p.type,p.location,p.owner].join(" ").toLowerCase().includes(q)));
+ storeTotal.innerHTML=`${storeProjects.length} <small>項</small>`;
+ storeDoing.innerHTML=`${storeProjects.filter(p=>p.status==="進行中").length} <small>項</small>`;
+ storeWaiting.innerHTML=`${storeProjects.filter(p=>p.status==="等待他人").length} <small>項</small>`;
+ storeDone.innerHTML=`${storeProjects.filter(p=>p.status==="已完成").length} <small>項</small>`;
+ const cards=[];
+ for(const p of list){
+  const atts=await getAttachments("store_"+p.id);
+  cards.push(`<div class="pm-card ${window.collabContext&&window.collabContext.projectId===p.id?"collab-target":""}">
+   <div class="pm-head">
+    <div><div class="pm-title">${p.name}</div><div class="sub">${p.type}｜${p.location||"未設定門市"}｜截止 ${p.date||"未定"}</div></div>
+    <div class="pm-actions">
+     <button class="icon-btn edit" onclick="openStoreModal('${p.id}')">編輯</button>
+     <button class="icon-btn delete" onclick="deleteStoreProject('${p.id}')">刪除</button>
+    </div>
+   </div>
+   <div style="margin-top:10px"><span class="pill ${pmPill(p.status)}">${p.status}</span> <span class="pill ${priorityPill(p.priority)}">${p.priority}優先</span></div>
+   <div class="progress" style="margin-top:10px"><div style="width:${p.progress}%"></div></div>
+   <div class="sub" style="margin-top:6px">進度 ${p.progress}%｜負責／協作：${p.owner||"未設定"}</div>
+   <div class="sub" style="margin-top:4px">下一步：${p.next||"尚未設定"}</div>
+   ${p.block?`<div class="notice" style="margin-top:10px"><b>卡點：</b>${p.block}</div>`:""}
+   <div class="checklist">
+    ${(p.subtasks||[]).map((s,i)=>{
+     const item=typeof s==="string"?{text:s,completed:false}:s;
+     return `<div class="checkitem">
+      <div class="subtask-main"><span>${item.text}</span></div>
+      <div class="subtask-controls">
+       <span class="subtask-date-label">預計完成</span>
+       <input class="subtask-date ${subtaskDateClass(item)}" type="date" value="${item.dueDate||""}" onchange="updateStoreSubtaskDate('${p.id}',${i},this.value)">
+       <button class="subtask-toggle ${item.completed?"done":"todo"}" onclick="toggleStoreSubtask('${p.id}',${i})">${item.completed?"完成":"待處理"}</button>
+      </div>
+     </div>`;
+    }).join("")}
+   </div>
+   <div class="dropzone" style="margin-top:12px">
+    <input id="store_file_${p.id}" type="file" multiple accept=".csv,.xls,.xlsx,.ppt,.pptx,.pdf,.doc,.docx,.jpg,.jpeg,.png,.webp" onchange="handleStoreProjectFiles('${p.id}',event)">
+    <label class="upload-label" for="store_file_${p.id}">上傳此專案附件</label>
+    <div class="sub" style="margin-top:7px">可上傳陳列圖、活動簡報、尺寸表、執行表與分析報告</div>
+   </div>
+   <div class="attachment-list">
+    ${atts.length?atts.map(a=>`<div class="attachment"><div class="attachment-name">${attachmentIcon(a.name)} ${a.name}<div class="sub">${(a.size/1024/1024).toFixed(2)} MB</div></div><div><button class="icon-btn file-btn" onclick="downloadAttachment('${a.id}')">下載</button> <button class="icon-btn delete" onclick="deleteAttachment('${a.id}').then(renderStoreProjects)">刪除</button></div></div>`).join(""):`<div class="sub">尚未上傳附件</div>`}
+   </div>
+  </div>`);
+ }
+ root.innerHTML=cards.join("")||'<div class="card">沒有符合條件的門市專案。</div>';
+}
+
+const defaultProjectsV3=[
+ {id:"p1",name:"摺疊扣環易折反向傘",type:"商品頁企劃",status:"進行中",priority:"高",date:"2026-08-08",progress:74,next:"完成商說頁架構與功能 icon",block:"等待設計最終稿",sheetUrl:"",formUrl:"",cloudUrl:"",subtasks:["商品定位與賣點","主標、副標、品名","商說頁架構","功能 icon","上架與歸檔"]},
+ {id:"p2",name:"BigRed 安全感DARK 68CM",type:"商品頁企劃",status:"進行中",priority:"高",date:"2026-08-15",progress:35,next:"整理通勤情境與主副標",block:"等待主視覺素材",sheetUrl:"",formUrl:"",cloudUrl:"",subtasks:["商品規格","情境定位","主副標","主視覺","上架"]},
+ {id:"p3",name:"防曬外套商品頁",type:"商品頁企劃",status:"等待他人",priority:"中",date:"2026-08-18",progress:55,next:"完成修圖後排版",block:"等待模特修圖與檢測資訊",sheetUrl:"",formUrl:"",cloudUrl:"",subtasks:["規格整理","檢測註記","修圖","排版","上架"]},
+ {id:"p4",name:"冰涼頸圈商品頁",type:"商品頁企劃",status:"已完成",priority:"中",date:"2026-08-03",progress:100,next:"歸檔最終版",block:"",sheetUrl:"",formUrl:"",cloudUrl:"",subtasks:["規格與注意事項","28℃註記","主副標","情境頁","歸檔"]}
+];
+let pmProjects=JSON.parse(localStorage.getItem("umbrellaProjectsV3")||"null")||defaultProjectsV3;
+pmProjects=pmProjects.map(p=>({
+ ...p,
+ subtasks:(p.subtasks||[]).map((s,i)=>typeof s==="string"?{text:s,completed:i<Math.round((p.subtasks.length||1)*(p.progress||0)/100),dueDate:""}:{...s,dueDate:s.dueDate||""})
+}));
+pmProjects.forEach(p=>{p.confirmations=(p.confirmations||[]).map(i=>({...i,permissions:Array.isArray(i.permissions)?i.permissions:["status"],dueDate:i.dueDate||"",note:i.note||"",resultUrl:i.resultUrl||"",unreadUpdate:!!i.unreadUpdate}));});
+pmProjects=pmProjects.map(p=>{
+ const legacy=[];
+ if(p.sheetUrl)legacy.push({id:"cl_sheet_"+p.id,type:"Google Sheet",name:"Google Sheet",url:p.sheetUrl});
+ if(p.formUrl)legacy.push({id:"cl_form_"+p.id,type:"Google 表單",name:"Google 表單",url:p.formUrl});
+ if(p.cloudUrl)legacy.push({id:"cl_cloud_"+p.id,type:"其他雲端連結",name:"雲端資料",url:p.cloudUrl});
+ return {...p,confirmations:Array.isArray(p.confirmations)?p.confirmations:[],sheetUrl:p.sheetUrl||"",formUrl:p.formUrl||"",cloudUrl:p.cloudUrl||"",cloudLinks:Array.isArray(p.cloudLinks)?p.cloudLinks:legacy};
+});
+let editingProjectId=null;
+let projectDB=null;
+
+function openProjectDb(){
+ return new Promise((resolve,reject)=>{
+  const req=indexedDB.open("UmbrellaMarketingOS",1);
+  req.onupgradeneeded=e=>{
+   const db=e.target.result;
+   if(!db.objectStoreNames.contains("attachments")){
+    const store=db.createObjectStore("attachments",{keyPath:"id"});
+    store.createIndex("projectId","projectId",{unique:false});
+   }
+  };
+  req.onsuccess=e=>{projectDB=e.target.result;resolve(projectDB)};
+  req.onerror=()=>reject(req.error);
+ });
+}
+function savePmState(){
+ localStorage.setItem("umbrellaProjectsV3",JSON.stringify(pmProjects));
+}
+function pmPill(status){
+ return status==="已完成"?"green":status==="等待他人"?"amber":status==="進行中"?"blue":"red";
+}
+function priorityPill(p){return p==="高"?"red":p==="中"?"amber":"green"}
+
+function normalizeCloudUrl(value){
+ const url=String(value||"").trim();
+ if(!url)return "";
+ if(/^https?:\/\//i.test(url))return url;
+ return "https://"+url;
+}
+function safeCloudUrl(url){
+ try{
+  const u=new URL(normalizeCloudUrl(url));
+  if(!["http:","https:"].includes(u.protocol))return "";
+  return u.href;
+ }catch(e){return ""}
+}
+function openCloudLink(url){
+ const safe=safeCloudUrl(url);
+ if(!safe){alert("連結格式不正確");return}
+ window.open(safe,"_blank","noopener,noreferrer");
+}
+function copyCloudLink(url){
+ const safe=safeCloudUrl(url);
+ if(!safe){alert("連結格式不正確");return}
+ navigator.clipboard.writeText(safe).then(()=>alert("連結已複製"));
+}
+function cloudLinkHtml(title,url,icon){
+ if(!url)return "";
+ const safe=safeCloudUrl(url);
+ if(!safe)return `<div class="cloud-link"><div class="cloud-link-info"><div class="cloud-link-title">⚠️ ${title}</div><div class="cloud-link-url">連結格式不正確，請編輯專案修正</div></div></div>`;
+ const encoded=JSON.stringify(safe).replace(/"/g,"&quot;");
+ return `<div class="cloud-link">
+  <div class="cloud-link-info">
+   <div class="cloud-link-title">${icon} ${title}</div>
+   <div class="cloud-link-url">${safe}</div>
+  </div>
+  <div class="cloud-link-actions">
+   <button class="icon-btn cloud-open" onclick='openCloudLink(${encoded})'>開啟</button>
+   <button class="icon-btn cloud-copy" onclick='copyCloudLink(${encoded})'>複製</button>
+  </div>
+ </div>`;
+}
+
+
+function cloudTypeIcon(type){
+ const map={
+  "Google Sheet":"📊","Google 表單":"📝","Google 簡報":"📽️",
+  "Google 文件":"📄","Google Drive 資料夾":"📁","Canva":"🎨","其他雲端連結":"🔗"
+ };
+ return map[type]||"🔗";
+}
+function renderProjectCloudLinks(project){
+ const links=Array.isArray(project.cloudLinks)?project.cloudLinks:[];
+ if(!links.length)return '<div class="cloud-empty">尚未加入雲端連結。可直接在上方貼入 Google Sheet、表單、簡報或其他網址。</div>';
+ return links.map(link=>{
+  const safe=safeCloudUrl(link.url);
+  if(!safe)return `<div class="cloud-link"><div class="cloud-link-info"><div class="cloud-link-title">⚠️ ${link.name||link.type}</div><div class="cloud-link-url">連結格式不正確</div></div><div class="cloud-link-actions"><button class="icon-btn delete" onclick="deleteProjectCloudLink('${project.id}','${link.id}')">刪除</button></div></div>`;
+  const encoded=JSON.stringify(safe).replace(/"/g,"&quot;");
+  return `<div class="cloud-link">
+   <div class="cloud-link-info">
+    <div class="cloud-link-title">${cloudTypeIcon(link.type)} ${link.name||link.type}</div>
+    <div class="cloud-link-url">${link.type}｜${safe}</div>
+   </div>
+   <div class="cloud-link-actions">
+    <button class="icon-btn cloud-open" onclick='openCloudLink(${encoded})'>開啟</button>
+    <button class="icon-btn cloud-copy" onclick='copyCloudLink(${encoded})'>複製</button>
+    <button class="icon-btn delete" onclick="deleteProjectCloudLink('${project.id}','${link.id}')">刪除</button>
+   </div>
+  </div>`;
+ }).join("");
+}
+function addProjectCloudLink(projectId){
+ const project=pmProjects.find(x=>x.id===projectId);if(!project)return;
+ const typeEl=document.getElementById(`cloud_type_${projectId}`);
+ const nameEl=document.getElementById(`cloud_name_${projectId}`);
+ const urlEl=document.getElementById(`cloud_url_${projectId}`);
+ const url=safeCloudUrl(urlEl.value);
+ if(!url){alert("請貼上正確的雲端網址");return}
+ const type=typeEl.value;
+ const name=nameEl.value.trim()||type;
+ project.cloudLinks=Array.isArray(project.cloudLinks)?project.cloudLinks:[];
+ project.cloudLinks.push({id:"cl_"+Date.now()+"_"+Math.random().toString(36).slice(2),type,name,url});
+ savePmState();
+ renderProjects();
+}
+function deleteProjectCloudLink(projectId,linkId){
+ const project=pmProjects.find(x=>x.id===projectId);if(!project)return;
+ project.cloudLinks=(project.cloudLinks||[]).filter(x=>x.id!==linkId);
+ savePmState();renderProjects();
+}
+
+
+
+function permissionLabel(key){
+ return {status:"執行狀態",dueDate:"預計完成日",note:"回覆備註",resultUrl:"成果連結"}[key]||key;
+}
+function hasPermission(item,key){
+ return (item.permissions||["status"]).includes(key);
+}
+function collaboratorFieldHtml(project,item,key){
+ const allowed=hasPermission(item,key);
+ if(key==="status")return `<div class="collab-field ${allowed?"allowed":""}"><label>執行狀態<select onchange="updateConfirmationField('${project.id}','${item.id}','status',this.value)"><option ${item.status==="執行中"?"selected":""}>執行中</option><option ${item.status==="製作完成"?"selected":""}>製作完成</option><option ${item.status==="其他"?"selected":""}>其他</option></select></label></div>`;
+ if(key==="dueDate")return `<div class="collab-field ${allowed?"allowed":""}"><label>預計完成日<input type="date" value="${item.dueDate||""}" onchange="updateConfirmationField('${project.id}','${item.id}','dueDate',this.value)"></label></div>`;
+ if(key==="note")return `<div class="collab-field ${allowed?"allowed":""}"><label>回覆備註<textarea onchange="updateConfirmationField('${project.id}','${item.id}','note',this.value)">${item.note||""}</textarea></label></div>`;
+ if(key==="resultUrl")return `<div class="collab-field ${allowed?"allowed":""}"><label>成果連結<input type="url" value="${item.resultUrl||""}" placeholder="貼上 Google Drive、Canva 或其他成果網址" onchange="updateConfirmationField('${project.id}','${item.id}','resultUrl',this.value)"></label></div>`;
+ return "";
+}
+
+function confirmationStatusClass(status){
+ if(status==="製作完成")return "green";
+ if(status==="執行中")return "blue";
+ return "amber";
+}
+function encodeInvite(projectId,confirmation){
+ return btoa(unescape(encodeURIComponent(JSON.stringify({p:projectId,a:confirmation.id,t:confirmation.token}))));
+}
+function collaboratorUrl(projectId,confirmation){
+ return `${location.href.split("#")[0]}#collab=${encodeInvite(projectId,confirmation)}`;
+}
+function renderProjectConfirmations(project){
+ const items=Array.isArray(project.confirmations)?project.confirmations:[];
+ if(!items.length)return '<div class="cloud-empty">目前沒有待他人確認事項。</div>';
+ return items.map(item=>{
+  const target=window.collabContext&&window.collabContext.projectId===project.id&&window.collabContext.assignmentId===item.id;
+  return `<div class="confirm-item ${target?"collab-assignment":""} ${item.unreadUpdate?"confirm-updated":""}">
+   <div class="confirm-head">
+    <div><b>${item.title}</b>${item.unreadUpdate?'<span class="updated-label">有更新</span>':""}<div class="confirm-meta">${item.email}｜建立於 ${item.createdAt||"—"}${item.updatedAt?`｜更新於 ${item.updatedAt}`:""}</div>
+     <div class="permission-summary">${(item.permissions||["status"]).map(p=>`<span class="pill blue">${permissionLabel(p)}</span>`).join("")}</div></div>
+    <span class="pill ${confirmationStatusClass(item.status)}">${item.status}</span>
+   </div>
+   ${window.collabContext?`<div class="collab-response">
+    ${collaboratorFieldHtml(project,item,"status")}
+    ${collaboratorFieldHtml(project,item,"dueDate")}
+    ${collaboratorFieldHtml(project,item,"note")}
+    ${collaboratorFieldHtml(project,item,"resultUrl")}
+    <div class="email-whitelist">此邀請僅授權給：<b>${item.email}</b>。你只能修改上方顯示的欄位。</div>
+   </div>`:""}
+   <div class="confirm-actions">
+    ${!window.collabContext&&hasPermission(item,"status")?`<select class="confirm-status" onchange="updateConfirmationStatus('${project.id}','${item.id}',this.value)"><option ${item.status==="執行中"?"selected":""}>執行中</option><option ${item.status==="製作完成"?"selected":""}>製作完成</option><option ${item.status==="其他"?"selected":""}>其他</option></select>`:""}
+    <button class="icon-btn cloud-open owner-only" onclick="sendConfirmationInvite('${project.id}','${item.id}')">寄送邀請</button>
+    <button class="icon-btn cloud-copy owner-only" onclick="copyConfirmationLink('${project.id}','${item.id}')">複製對接連結</button>
+    ${item.unreadUpdate?`<button class="icon-btn read-btn owner-only" onclick="markConfirmationRead('${project.id}','${item.id}')">標記已讀</button>`:""}
+    <button class="icon-btn delete owner-only" onclick="deleteProjectConfirmation('${project.id}','${item.id}')">刪除</button>
+   </div>
+  </div>`;
+ }).join("");
+}
+function showConfirmationError(projectId,message){
+ const el=document.getElementById(`confirm_error_${projectId}`);
+ if(!el)return;
+ el.textContent=message;
+ el.classList.add("show");
+}
+function clearConfirmationError(projectId){
+ const el=document.getElementById(`confirm_error_${projectId}`);
+ if(el){el.textContent="";el.classList.remove("show")}
+}
+function selectedConfirmationPermissions(projectId){
+ return [...document.querySelectorAll(`#confirm_permissions_${projectId} input:checked`)].map(x=>x.value);
+}
+function showConfirmationError(projectId,message){
+ const el=document.getElementById(`confirm_error_${projectId}`);
+ if(!el)return;el.textContent=message;el.classList.add("show");
+}
+function clearConfirmationError(projectId){
+ const el=document.getElementById(`confirm_error_${projectId}`);
+ if(el){el.textContent="";el.classList.remove("show")}
+}
+function addProjectConfirmation(projectId){
+ const project=pmProjects.find(x=>x.id===projectId);if(!project)return;
+ clearConfirmationError(projectId);
+ const titleEl=document.getElementById(`confirm_item_${projectId}`);
+ const emailEl=document.getElementById(`confirm_email_${projectId}`);
+ const title=titleEl.value.trim();
+ const email=emailEl.value.trim().toLowerCase();
+ const status=document.getElementById(`confirm_status_${projectId}`).value;
+ const permissions=selectedConfirmationPermissions(projectId);
+ if(!title){showConfirmationError(projectId,"請填寫待確認／對接內容。");titleEl.focus();return}
+ if(!email){showConfirmationError(projectId,"請填寫對接人的 Email。");emailEl.focus();return}
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showConfirmationError(projectId,"Email 格式不正確。");emailEl.focus();return}
+ if(!permissions.length){showConfirmationError(projectId,"請至少開放一個可編輯欄位。");return}
+ const item={
+  id:"cf_"+Date.now()+"_"+Math.random().toString(36).slice(2),
+  title,email,status,permissions,dueDate:"",note:"",resultUrl:"",
+  token:(crypto.randomUUID?crypto.randomUUID():Math.random().toString(36).slice(2)),
+  createdAt:new Date().toLocaleDateString("zh-TW"),updatedAt:"",unreadUpdate:false
+ };
+ project.confirmations=Array.isArray(project.confirmations)?project.confirmations:[];
+ project.confirmations.push(item);
+ savePmState();updateProjectNavDot();
+ renderProjects().then(()=>{
+  copyConfirmationLink(projectId,item.id);
+  setTimeout(()=>sendConfirmationInvite(projectId,item.id),300);
+ });
+}
+
+function updateConfirmationField(projectId,itemId,field,value){
+ const project=pmProjects.find(x=>x.id===projectId);if(!project)return;
+ const item=(project.confirmations||[]).find(x=>x.id===itemId);if(!item)return;
+ if(!window.collabContext){alert("此欄位僅供受邀對接人操作");return}
+ if(window.collabContext.projectId!==projectId||window.collabContext.assignmentId!==itemId||window.collabContext.token!==item.token){alert("你沒有權限修改此項目");return}
+ if(!hasPermission(item,field)){alert("你沒有此欄位的編輯權限");return}
+ item[field]=value;
+ item.updatedAt=new Date().toLocaleString("zh-TW");
+ item.updatedBy=item.email;
+ item.unreadUpdate=true;
+ savePmState();updateProjectNavDot();renderProjects();
+}
+
+function updateConfirmationStatus(projectId,itemId,status){
+ const project=pmProjects.find(x=>x.id===projectId);if(!project)return;
+ const item=(project.confirmations||[]).find(x=>x.id===itemId);if(!item)return;
+ if(window.collabContext)return updateConfirmationField(projectId,itemId,"status",status);
+ item.status=status;item.updatedAt=new Date().toLocaleString("zh-TW");
+ savePmState();renderProjects();
+}
+
+function markConfirmationRead(projectId,itemId){
+ const project=pmProjects.find(x=>x.id===projectId);if(!project)return;
+ const item=(project.confirmations||[]).find(x=>x.id===itemId);if(!item)return;
+ item.unreadUpdate=false;
+ savePmState();updateProjectNavDot();renderProjects();
+}
+function updateProjectNavDot(){
+ const hasUnread=pmProjects.some(p=>(p.confirmations||[]).some(i=>i.unreadUpdate));
+ const dot=document.getElementById("projectsUpdateDot");
+ if(dot)dot.classList.toggle("show",hasUnread);
+}
+
+function deleteProjectConfirmation(projectId,itemId){
+ const project=pmProjects.find(x=>x.id===projectId);if(!project)return;
+ project.confirmations=(project.confirmations||[]).filter(x=>x.id!==itemId);
+ savePmState();renderProjects();
+}
+function getConfirmation(projectId,itemId){
+ const project=pmProjects.find(x=>x.id===projectId);
+ return {project,item:(project?.confirmations||[]).find(x=>x.id===itemId)};
+}
+function copyConfirmationLink(projectId,itemId){
+ const {item}=getConfirmation(projectId,itemId);if(!item)return;
+ navigator.clipboard.writeText(collaboratorUrl(projectId,item)).then(()=>alert("對接連結已複製"));
+}
+async function sendConfirmationInvite(projectId,itemId){
+ const {project,item}=getConfirmation(projectId,itemId);
+ if(!project||!item)return;
+
+ const url=collaboratorUrl(projectId,item);
+ const subject=`【雨傘王專案確認】${project.name}－${item.title}`;
+ const content=`您好，
+
+請協助更新以下對接項目的處理狀態：
+
+專案：${project.name}
+對接內容：${item.title}
+可編輯欄位：${(item.permissions||["status"]).map(permissionLabel).join("、")}
+
+受限操作連結：
+${url}
+
+此連結僅能開啟被指派項目的畫面，不能修改專案其他內容。`;
+
+ const buttons=[...document.querySelectorAll(`button[onclick="sendConfirmationInvite('${projectId}','${itemId}')"]`)];
+ buttons.forEach(btn=>{btn.disabled=true;btn.textContent="寄送中…";});
+
+ try{
+  await fetch(MARKETING_OS_MAIL_API,{
+   method:"POST",
+   mode:"no-cors",
+   headers:{"Content-Type":"text/plain;charset=utf-8"},
+   body:JSON.stringify({email:item.email,subject,content})
+  });
+  alert(`邀請信已送出至：${item.email}
+
+請對方稍後檢查收件匣與垃圾郵件。`);
+ }catch(error){
+  console.error(error);
+  alert("寄信失敗，請確認網路連線與 Apps Script 部署狀態。");
+ }finally{
+  buttons.forEach(btn=>{btn.disabled=false;btn.textContent="寄送邀請";});
+ }
+}
+function parseCollaboratorMode(){
+ const m=(location.hash||"").match(/^#collab=(.+)$/);if(!m)return null;
+ try{
+  const obj=JSON.parse(decodeURIComponent(escape(atob(m[1]))));
+  const project=pmProjects.find(x=>x.id===obj.p);
+  const item=(project?.confirmations||[]).find(x=>x.id===obj.a);
+  if(!project||!item||item.token!==obj.t)return null;
+  return {projectId:obj.p,assignmentId:obj.a,token:obj.t};
+ }catch(e){return null}
+}
+function applyCollaboratorMode(){
+ window.collabContext=parseCollaboratorMode();
+ if(!window.collabContext)return;
+ document.body.classList.add("collab-mode");
+ const banner=document.getElementById("collabBanner");if(banner)banner.style.display="block";
+ const saved=sessionStorage.getItem("collabVerifiedEmail");
+ const {item}=getConfirmation(window.collabContext.projectId,window.collabContext.assignmentId);
+ if(!item||saved!==item.email){collabEmailGate.classList.add("open")}
+}
+function verifyCollaboratorEmail(){
+ const input=collabEmailInput.value.trim().toLowerCase();
+ const {item}=getConfirmation(window.collabContext.projectId,window.collabContext.assignmentId);
+ if(!item||input!==item.email){
+  collabEmailError.textContent="此 Email 未被授權，無法進入。";
+  collabEmailError.classList.add("show");return;
+ }
+ sessionStorage.setItem("collabVerifiedEmail",input);
+ collabEmailGate.classList.remove("open");
+ renderProjects();
+}
+
+function openProjectModal(id=null){
+ editingProjectId=id;
+ const p=id?pmProjects.find(x=>x.id===id):null;
+ pmModalTitle.textContent=p?"編輯專案":"新增專案";
+ pmName.value=p?.name||"";
+ pmType.value=p?.type||"商品頁企劃";
+ pmStatus.value=p?.status||"待開始";
+ pmPriority.value=p?.priority||"中";
+ pmDate.value=p?.date||"";
+ pmProgress.value=p?.progress??0;
+ pmNext.value=p?.next||"";
+ pmBlock.value=p?.block||"";
+ pmSheetUrl.value=p?.sheetUrl||"";
+ pmFormUrl.value=p?.formUrl||"";
+ pmCloudUrl.value=p?.cloudUrl||"";
+ pmSubtasks.value=(p?.subtasks||[]).map(s=>typeof s==="string"?s:s.text).join("\n");
+ projectModal.classList.add("open");
+}
+function closeProjectModal(){projectModal.classList.remove("open")}
+function saveProject(){
+ const name=pmName.value.trim();
+ if(!name){alert("請輸入專案名稱");return}
+ const old=editingProjectId?pmProjects.find(x=>x.id===editingProjectId):null;
+ const obj={
+  id:editingProjectId||("p_"+Date.now()),
+  name,type:pmType.value,status:pmStatus.value,priority:pmPriority.value,
+  date:pmDate.value,progress:Math.max(0,Math.min(100,Number(pmProgress.value)||0)),
+  next:pmNext.value.trim(),block:pmBlock.value.trim(),
+  sheetUrl:normalizeCloudUrl(pmSheetUrl.value),
+  formUrl:normalizeCloudUrl(pmFormUrl.value),
+  cloudUrl:normalizeCloudUrl(pmCloudUrl.value),
+  cloudLinks:old?.cloudLinks||[],
+  confirmations:old?.confirmations||[],
+  subtasks:pmSubtasks.value.split("\n").map(x=>x.trim()).filter(Boolean).map(text=>{
+   const oldItem=(old?.subtasks||[]).find(s=>(typeof s==="string"?s:s.text)===text);
+   return {text,completed:typeof oldItem==="object"?!!oldItem.completed:false,dueDate:typeof oldItem==="object"?(oldItem.dueDate||""):""};
+  })
+ };
+ if(editingProjectId){
+  const idx=pmProjects.findIndex(x=>x.id===editingProjectId);
+  pmProjects[idx]=obj;
+ }else pmProjects.unshift(obj);
+ savePmState();closeProjectModal();renderProjects();
+}
+async function deleteProject(id){
+ const p=pmProjects.find(x=>x.id===id);
+ if(!confirm(`確定刪除「${p?.name||"這個專案"}」及全部附件嗎？`))return;
+ await deleteProjectAttachments(id);
+ pmProjects=pmProjects.filter(x=>x.id!==id);
+ savePmState();renderProjects();
+}
+function attachmentIcon(name){
+ const ext=(name.split(".").pop()||"").toLowerCase();
+ if(["ppt","pptx"].includes(ext))return "📊";
+ if(["xls","xlsx","csv"].includes(ext))return "📑";
+ if(["pdf"].includes(ext))return "📕";
+ if(["jpg","jpeg","png","webp"].includes(ext))return "🖼️";
+ if(["doc","docx"].includes(ext))return "📄";
+ return "📎";
+}
+function getAttachments(projectId){
+ return new Promise(async(resolve,reject)=>{
+  if(!projectDB)await openProjectDb();
+  const tx=projectDB.transaction("attachments","readonly");
+  const req=tx.objectStore("attachments").index("projectId").getAll(projectId);
+  req.onsuccess=()=>resolve(req.result||[]);
+  req.onerror=()=>reject(req.error);
+ });
+}
+async function addAttachments(projectId,files){
+ if(!files?.length)return;
+ if(!projectDB)await openProjectDb();
+ const max=20*1024*1024;
+ for(const file of files){
+  if(file.size>max){alert(`${file.name} 超過 20MB，未上傳`);continue}
+  await new Promise((resolve,reject)=>{
+   const tx=projectDB.transaction("attachments","readwrite");
+   tx.objectStore("attachments").put({
+    id:"a_"+Date.now()+"_"+Math.random().toString(36).slice(2),
+    projectId,name:file.name,type:file.type,size:file.size,createdAt:new Date().toISOString(),blob:file
+   });
+   tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);
+  });
+ }
+ renderProjects();
+}
+async function deleteAttachment(id){
+ if(!projectDB)await openProjectDb();
+ await new Promise((resolve,reject)=>{
+  const tx=projectDB.transaction("attachments","readwrite");
+  tx.objectStore("attachments").delete(id);
+  tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);
+ });
+ renderProjects();
+}
+async function deleteProjectAttachments(projectId){
+ const list=await getAttachments(projectId);
+ for(const a of list)await deleteAttachmentSilent(a.id);
+}
+async function deleteAttachmentSilent(id){
+ if(!projectDB)await openProjectDb();
+ return new Promise((resolve,reject)=>{
+  const tx=projectDB.transaction("attachments","readwrite");
+  tx.objectStore("attachments").delete(id);
+  tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);
+ });
+}
+async function downloadAttachment(id){
+ if(!projectDB)await openProjectDb();
+ const item=await new Promise((resolve,reject)=>{
+  const tx=projectDB.transaction("attachments","readonly");
+  const req=tx.objectStore("attachments").get(id);
+  req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);
+ });
+ if(!item)return;
+ const url=URL.createObjectURL(item.blob);
+ const a=document.createElement("a");a.href=url;a.download=item.name;a.click();
+ setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+function handleProjectFiles(projectId,event){
+ addAttachments(projectId,[...event.target.files]);
+ event.target.value="";
+}
+
+
+function subtaskDateClass(item){
+ if(!item?.dueDate || item.completed)return "";
+ const today=new Date();today.setHours(0,0,0,0);
+ const due=new Date(item.dueDate+"T00:00:00");
+ const diff=Math.ceil((due-today)/86400000);
+ if(diff<0)return "overdue-date";
+ if(diff<=3)return "due-soon-date";
+ return "";
+}
+function updateProductSubtaskDate(projectId,index,value){
+ const project=pmProjects.find(x=>x.id===projectId);if(!project)return;
+ const item=project.subtasks?.[index];if(!item)return;
+ if(typeof item==="string")project.subtasks[index]={text:item,completed:false,dueDate:value};
+ else item.dueDate=value;
+ savePmState();renderProjects();
+}
+function updateStoreSubtaskDate(projectId,index,value){
+ const project=storeProjects.find(x=>x.id===projectId);if(!project)return;
+ const item=project.subtasks?.[index];if(!item)return;
+ if(typeof item==="string")project.subtasks[index]={text:item,completed:false,dueDate:value};
+ else item.dueDate=value;
+ saveStoreState();renderStoreProjects();
+}
+function updateCollabSubtaskDate(projectId,index,value){
+ const project=collabProjects.find(x=>x.id===projectId);if(!project)return;
+ const item=project.subtasks?.[index];if(!item)return;
+ if(typeof item==="string")project.subtasks[index]={text:item,completed:false,dueDate:value};
+ else item.dueDate=value;
+ saveCollabState();renderCollabProjects();
+}
+
+function toggleProductSubtask(projectId,index){
+ const project=pmProjects.find(x=>x.id===projectId);if(!project)return;
+ const item=project.subtasks?.[index];if(!item)return;
+ if(typeof item==="string")project.subtasks[index]={text:item,completed:true,dueDate:""};
+ else item.completed=!item.completed;
+ const total=project.subtasks.length||1;
+ const completed=project.subtasks.filter(s=>typeof s==="object"&&s.completed).length;
+ project.progress=Math.round(completed/total*100);
+ if(project.progress===100)project.status="已完成";
+ else if(project.status==="已完成")project.status="進行中";
+ savePmState();renderProjects();
+}
+
+async function renderProjects(){
+ if(!document.getElementById("projectList"))return;
+ const q=(pmSearch.value||"").toLowerCase();
+ const f=pmFilter.value||"";
+ let list=pmProjects.filter(p=>(!f||p.status===f)&&(!q||p.name.toLowerCase().includes(q)||p.type.toLowerCase().includes(q)));
+ if(window.collabContext)list=list.filter(p=>p.id===window.collabContext.projectId);
+ pmTotal.innerHTML=`${pmProjects.length} <small>項</small>`;
+ pmDoing.innerHTML=`${pmProjects.filter(p=>p.status==="進行中").length} <small>項</small>`;
+ pmWaiting.innerHTML=`${pmProjects.filter(p=>p.status==="等待他人").length} <small>項</small>`;
+ pmDone.innerHTML=`${pmProjects.filter(p=>p.status==="已完成").length} <small>項</small>`;
+ const cards=[];
+ for(const p of list){
+  const atts=await getAttachments(p.id);
+  cards.push(`<div class="pm-card">
+   <div class="pm-head">
+    <div><div class="pm-title">${p.name}</div><div class="sub">${p.type}｜截止 ${p.date||"未定"}</div></div>
+    <div class="pm-actions">
+     <button class="icon-btn edit" onclick="openProjectModal('${p.id}')">編輯</button>
+     <button class="icon-btn delete" onclick="deleteProject('${p.id}')">刪除</button>
+    </div>
+   </div>
+   <div style="margin-top:10px"><span class="pill ${pmPill(p.status)}">${p.status}</span> <span class="pill ${priorityPill(p.priority)}">${p.priority}優先</span></div>
+   <div class="progress" style="margin-top:10px"><div style="width:${p.progress}%"></div></div>
+   <div class="sub" style="margin-top:6px">進度 ${p.progress}%｜下一步：${p.next||"尚未設定"}</div>
+   ${p.block?`<div class="notice" style="margin-top:10px"><b>卡點：</b>${p.block}</div>`:""}
+   <div class="checklist">
+    ${(p.subtasks||[]).map((s,i)=>{
+     const item=typeof s==="string"?{text:s,completed:false}:s;
+     return `<div class="checkitem">
+      <div class="subtask-main"><span>${item.text}</span></div>
+      <div class="subtask-controls">
+       <span class="subtask-date-label">預計完成</span>
+       <input class="subtask-date ${subtaskDateClass(item)}" type="date" value="${item.dueDate||""}" onchange="updateProductSubtaskDate('${p.id}',${i},this.value)">
+       <button class="subtask-toggle ${item.completed?"done":"todo"}" onclick="toggleProductSubtask('${p.id}',${i})">${item.completed?"完成":"待處理"}</button>
+      </div>
+     </div>`;
+    }).join("")}
+   </div>
+   <div class="link-entry-box">
+    <div class="cloud-section-title" style="font-size:15px;color:#b31f2b">🔗 新增雲端連結（主要使用）</div>
+    <div class="link-entry-grid">
+     <label>連結類型
+      <select id="cloud_type_${p.id}">
+       <option>Google Sheet</option>
+       <option>Google 表單</option>
+       <option>Google 簡報</option>
+       <option>Google 文件</option>
+       <option>Google Drive 資料夾</option>
+       <option>Canva</option>
+       <option>其他雲端連結</option>
+      </select>
+     </label>
+     <label>名稱與網址
+      <div style="display:grid;grid-template-columns:180px 1fr;gap:8px">
+       <input id="cloud_name_${p.id}" placeholder="例：商品規格表">
+       <input id="cloud_url_${p.id}" placeholder="貼上雲端網址">
+      </div>
+     </label>
+     <button class="btn" onclick="addProjectCloudLink('${p.id}')">加入連結</button>
+    </div>
+   </div>
+   <div class="cloud-links">
+    <div class="cloud-section-title">已綁定的雲端資料</div>
+    ${renderProjectCloudLinks(p)}
+   </div>
+   <div class="confirm-box">
+    <div class="confirm-title">👤 待他人確認事項</div><div class="cloud-guide" style="margin-bottom:10px">建立邀請後，系統會透過已連接的 Gmail 寄出受限對接連結。寄送完成後，請對方檢查收件匣與垃圾郵件。</div>
+    <div class="confirm-entry">
+     <label>待確認／對接內容（必填）
+      <input id="confirm_item_${p.id}" placeholder="例：主視覺完稿確認">
+     </label>
+     <label>對接人 Email（必填）
+      <input id="confirm_email_${p.id}" type="email" placeholder="name@company.com">
+     </label>
+     <label>初始狀態
+      <select id="confirm_status_${p.id}">
+       <option>執行中</option>
+       <option>製作完成</option>
+       <option>其他</option>
+      </select>
+     </label>
+     <button class="btn" onclick="addProjectConfirmation('${p.id}')">建立邀請</button>
+    </div>
+    <div style="margin-top:10px">
+     <div class="sub"><b>允許對接人編輯的欄位（可複選）</b></div>
+     <div class="permission-picker" id="confirm_permissions_${p.id}">
+      <label class="permission-chip"><input type="checkbox" value="status" checked>執行狀態</label>
+      <label class="permission-chip"><input type="checkbox" value="dueDate">預計完成日</label>
+      <label class="permission-chip"><input type="checkbox" value="note">回覆備註</label>
+      <label class="permission-chip"><input type="checkbox" value="resultUrl">成果連結</label>
+     </div>
+    </div>
+    <div id="confirm_error_${p.id}" class="confirm-error"></div>
+    <div class="confirm-list">${renderProjectConfirmations(p)}</div>
+   </div>
+  </div>`);
+ }
+ projectList.innerHTML=cards.join("")||'<div class="card">沒有符合條件的專案。</div>';
+}
+
+const taskData=[
+ {name:"反向傘商說頁",status:"進行中",cat:"商品頁",date:"8/8",priority:"高"},
+ {name:"門市看板最終稿",status:"等待他人",cat:"門市物料",date:"8/7",priority:"高"},
+ {name:"8 月 LINE 圖文",status:"進行中",cat:"月度圖文",date:"8/13",priority:"高"},
+ {name:"男性日傘修圖",status:"等待他人",cat:"拍攝素材",date:"8/12",priority:"中"},
+ {name:"Threads 週報",status:"待開始",cat:"社群內容",date:"8/10",priority:"中"},
+ {name:"防曬外套上架",status:"待開始",cat:"商品頁",date:"8/18",priority:"中"},
+ {name:"冰涼頸圈頁面歸檔",status:"已完成",cat:"商品頁",date:"8/3",priority:"低"}
+];
+function renderTasks(){
+ const statuses=["待開始","進行中","等待他人","已完成"];
+ taskKanban.innerHTML=statuses.map(st=>`<div class="column"><h3>${st}</h3>${taskData.filter(t=>t.status===st).map(t=>`
+  <div class="task-card"><h4>${t.name}</h4><span class="pill ${t.priority==="高"?"red":t.priority==="中"?"amber":"green"}">${t.priority}優先</span>
+  <div class="task-meta"><span>${t.cat}</span><span>${t.date}</span></div></div>`).join("")||'<div class="sub">目前沒有任務</div>'}</div>`).join("");
+}
+function addDemoTask(){
+ const name=prompt("請輸入任務名稱");
+ if(!name)return;
+ taskData.unshift({name,status:"待開始",cat:"其他",date:"未定",priority:"中"});
+ renderTasks();
+}
+function csvRows(text){
+ const out=[];let row=[],cell="",q=false;
+ for(let i=0;i<text.length;i++){const c=text[i],nx=text[i+1];
+  if(c=='"'&&q&&nx=='"'){cell+='"';i++}
+  else if(c=='"')q=!q;
+  else if(c==","&&!q){row.push(cell);cell=""}
+  else if((c=="\n"||c=="\r")&&!q){if(c=="\r"&&nx=="\n")i++;row.push(cell);if(row.some(v=>v!==""))out.push(row);row=[];cell=""}
+  else cell+=c
+ }row.push(cell);if(row.some(v=>v!==""))out.push(row);return out
+}
+function parseUploadedLineCsv(text){
+ const rows=csvRows(text.replace(/^\uFEFF/,""));
+ const monthCols=[];
+ (rows[0]||[]).forEach((v,i)=>{const m=String(v).trim().match(/^(\d{1,2})月$/);if(m)monthCols.push({month:Number(m[1]),col:i})});
+ if(!monthCols.length)throw new Error("找不到月份欄位");
+ const clean=v=>{const s=String(v??"").replaceAll(",","").trim();if(!s||s==="√"||s==="-"||s==="—")return 0;const x=Number(s);return Number.isFinite(x)?x:0};
+ const stores=[];
+ for(let i=2;i<rows.length;i++){
+  const r=rows[i]||[];if(!String(r[0]||"").trim())continue;
+  const next=(rows[i+1]&&!String(rows[i+1][0]||"").trim())?rows[i+1]:[];
+  const old=data.stores.find(s=>s.code===(r[1]||""));
+  const s={no:clean(r[0]),code:r[1]||"",name:r[24]||r[2]||"",friends:clean(r[3]),months:old?{...old.months}:{}};
+  monthCols.forEach(x=>{
+   const delivered=clean(r[x.col])+clean(next[x.col]);
+   const impressions=clean(r[x.col+1])+clean(next[x.col+1]);
+   const cost=clean(r[x.col+2])+clean(next[x.col+2]);
+   s.months[`2026-${String(x.month).padStart(2,"0")}`]={sent:delivered>0,delivered,impressions,cost};
+  });
+  stores.push(s);if(next.length)i++;
+ }
+ if(stores.length!==25)throw new Error(`門市數不是 25 家，目前讀到 ${stores.length} 家`);
+ return {months:[...new Set([...data.months,...monthCols.map(x=>`2026-${String(x.month).padStart(2,"0")}`)])].sort(),stores};
+}
+function handleLineUpload(event){
+ const file=event.target.files[0];if(!file)return;
+ uploadStatus.textContent="正在讀取 CSV…";
+ const reader=new FileReader();
+ reader.onload=()=>{
+  try{
+   data=parseUploadedLineCsv(reader.result);
+   currentMonth=data.months[data.months.length-1];
+   localStorage.setItem("umbrellaMarketingOSLineData",JSON.stringify(data));
+   openProjectDb().then(()=>{applyCollaboratorMode();updateProjectNavDot();renderProjects();renderStoreProjects();renderCollabProjects();});openModuleDb().then(renderAllModuleFiles);renderLine();renderHomeTasks();renderTasks();renderThreads();
+   uploadStatus.textContent=`上傳成功：已更新 ${data.stores.length} 家門市，最新月份為 ${monthLabel(currentMonth)}。`;
+  }catch(e){
+   uploadStatus.textContent="上傳失敗："+e.message;
+  }
+ };
+ reader.readAsText(file,"utf-8");
+ event.target.value="";
+}
+
+function fmt(n){return Math.round(Number(n)||0).toLocaleString("zh-TW")}
+function pct(a,b){return b?Number(a)/Number(b)*100:0}
+function monthLabel(m){const [y,mo]=m.split("-");return `${Number(mo)}月`}
+function monthSummary(month){
+ const list=data.stores.map(s=>({...s,d:s.months[month]||{sent:false,delivered:0,impressions:0,cost:0}}));
+ const sent=list.filter(x=>x.d.sent).length;
+ const delivered=list.reduce((a,x)=>a+(+x.d.delivered||0),0);
+ const impressions=list.reduce((a,x)=>a+(+x.d.impressions||0),0);
+ const cost=list.reduce((a,x)=>a+(+x.d.cost||0),0);
+ return {list,sent,delivered,impressions,cost,reach:pct(impressions,delivered)}
+}
+function renderLine(){
+ const s=monthSummary(currentMonth);
+ monthTabs.innerHTML=data.months.map(m=>`<button class="${m===currentMonth?"active":""}" onclick="currentMonth='${m}';renderLine()">${monthLabel(m)}</button>`).join("");
+ sentKpi.innerHTML=`${s.sent} <small>/ 25 家</small>`;
+ deliveredKpi.innerHTML=`${fmt(s.delivered)} <small>則</small>`;
+ reachKpi.innerHTML=`${s.reach.toFixed(1)} <small>%</small>`;
+ costKpi.innerHTML=`${fmt(s.cost)} <small>元</small>`;
+ lineRows.innerHTML=s.list.map(x=>`<tr><td>${x.no}</td><td>${x.code}</td><td><b>${x.name}</b></td><td><span class="pill ${x.d.sent?"green":"red"}">${x.d.sent?"已完成":"未發送"}</span></td><td>${fmt(x.friends)}</td><td>${fmt(x.d.delivered)}</td><td>${fmt(x.d.impressions)}</td><td><b>${pct(x.d.impressions,x.d.delivered).toFixed(1)}%</b></td><td>NT$ ${fmt(x.d.cost)}</td></tr>`).join("");
+ const ranked=s.list.filter(x=>x.d.delivered>0).sort((a,b)=>pct(b.d.impressions,b.d.delivered)-pct(a.d.impressions,a.d.delivered));
+ ranking.innerHTML=ranked.slice(0,8).map((x,i)=>`<div class="rank"><div class="ranknum">${i+1}</div><div><b>${x.name}</b><div class="sub">曝光 ${fmt(x.d.impressions)}／送達 ${fmt(x.d.delivered)}</div></div><b>${pct(x.d.impressions,x.d.delivered).toFixed(1)}%</b></div>`).join("");
+ const low=ranked.filter(x=>pct(x.d.impressions,x.d.delivered)<s.reach).reverse().slice(0,5);
+ lowList.innerHTML=low.map(x=>{
+   const r=pct(x.d.impressions,x.d.delivered),gap=s.reach-r;
+   return `<div class="low"><div class="lowhead"><b>${x.name}</b><span class="pill ${r<20?"red":"amber"}">${r<20?"高風險":"需關注"}</span></div><div class="lowgrid"><div class="lowmini"><span class="label">本月</span><b>${r.toFixed(1)}%</b></div><div class="lowmini"><span class="label">低於平均</span><b>${gap.toFixed(1)}%</b></div><div class="lowmini"><span class="label">好友數</span><b>${fmt(x.friends)}</b></div></div><div class="sub" style="margin-top:9px">建議比較高觸及門市的發送時間與標題寫法。</div></div>`
+ }).join("");
+ const best=ranked[0],worst=ranked[ranked.length-1];
+ managerReport.textContent=`【${monthLabel(currentMonth)} LINE 月報】
+
+• 完成推播：${s.sent} / 25 家
+• 成功送達：${fmt(s.delivered)} 則
+• 整體觸及率：${s.reach.toFixed(1)}%
+• 本月總費用：NT$ ${fmt(s.cost)}
+• 最佳門市：${best?best.name+" "+pct(best.d.impressions,best.d.delivered).toFixed(1)+"%":"無資料"}
+• 最低門市：${worst?worst.name+" "+pct(worst.d.impressions,worst.d.delivered).toFixed(1)+"%":"無資料"}
+• 低於平均：${low.length} 家
+
+建議：針對低觸及門市比較發送時間、標題與好友活躍度，並列入下月追蹤。`;
+}
+function renderHome(){renderHomeTasks();}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
+ document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));b.classList.add("active");
+ document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
+ document.getElementById(b.dataset.page).classList.add("active");
+ title.textContent=b.textContent;
+ if(b.dataset.page==="projects")renderProjects();
+ if(b.dataset.page==="tasks")renderThreads();
+ if(b.dataset.page==="store")renderStoreProjects();
+ if(b.dataset.page==="collab")renderCollabProjects();
+ if(b.dataset.page==="home")renderHomeTasks();
+ renderModuleFiles(b.dataset.page);
+});
+openProjectDb().then(()=>{applyCollaboratorMode();renderProjects();renderStoreProjects();renderCollabProjects();});openModuleDb().then(renderAllModuleFiles);renderLine();renderHomeTasks();renderTasks();renderThreads();
+
+/* ===== 三大模組可編輯專案系統 ===== */
+const OPS_KEYS={content:"umbrellaOpsContentV1",shooting:"umbrellaOpsShootingV1",store:"umbrellaOpsStoreV2"};
+const OPS_DEFAULTS={
+ content:[
+  {id:"oc1",name:"2026 年 8 月月度圖文",type:"月度圖文",status:"進行中",priority:"高",date:"2026-08-31",owner:"自己／設計",next:"完成 LINE 與 EDM 排程",block:"",subtasks:[{text:"LINE 推播",progress:70,dueDate:""},{text:"官網／EDM",progress:55,dueDate:""},{text:"Threads 社群",progress:40,dueDate:""},{text:"門市物料",progress:30,dueDate:""}],links:[]}
+ ],
+ shooting:[
+  {id:"os1",name:"男性日傘素材",type:"拍攝與素材",status:"進行中",priority:"高",date:"2026-08-20",owner:"自己／攝影",next:"確認修圖交件",block:"等待部分修圖",subtasks:[{text:"腳本",progress:100,dueDate:""},{text:"模特與場地",progress:100,dueDate:""},{text:"拍攝",progress:100,dueDate:""},{text:"修圖",progress:45,dueDate:""},{text:"尺寸輸出",progress:20,dueDate:""}],links:[]}
+ ],
+ store:[
+  {id:"ot1",name:"反向傘門市陳列推廣",type:"門市陳列",status:"進行中",priority:"高",date:"2026-08-25",owner:"自己／門市",next:"確認陳列圖與執行回傳",block:"",subtasks:[{text:"陳列規範",progress:80,dueDate:""},{text:"門市物料",progress:60,dueDate:""},{text:"教育話術",progress:40,dueDate:""},{text:"執行回傳",progress:10,dueDate:""}],links:[]}
+ ]
+};
+let opsData={};
+Object.keys(OPS_KEYS).forEach(m=>{
+ try{opsData[m]=JSON.parse(localStorage.getItem(OPS_KEYS[m])||"null")||OPS_DEFAULTS[m]}catch(e){opsData[m]=OPS_DEFAULTS[m]}
+ opsData[m]=(opsData[m]||[]).map(p=>({...p,subtasks:(p.subtasks||[]).map(s=>typeof s==="string"?{text:s,progress:0,dueDate:""}:{text:s.text||"",progress:Number(s.progress??(s.completed?100:0)),dueDate:s.dueDate||""}),links:Array.isArray(p.links)?p.links:[]}));
+});
+let opsEditing={module:null,id:null};
+function saveOpsState(module){localStorage.setItem(OPS_KEYS[module],JSON.stringify(opsData[module]||[]))}
+function opsAverage(p){const a=p.subtasks||[];return a.length?Math.round(a.reduce((n,s)=>n+(Number(s.progress)||0),0)/a.length):0}
+function openOpsModal(module,id=null){
+ opsEditing={module,id};
+ const p=id?(opsData[module]||[]).find(x=>x.id===id):null;
+ opsModalTitle.textContent=p?"編輯專案":"新增專案";
+ opsName.value=p?.name||"";opsType.value=p?.type||({content:"月度圖文",shooting:"拍攝與素材",store:"門市陳列"}[module]);
+ opsStatus.value=p?.status||"待開始";opsPriority.value=p?.priority||"中";opsDate.value=p?.date||"";opsOwner.value=p?.owner||"";
+ opsNext.value=p?.next||"";opsBlock.value=p?.block||"";opsSubtasks.value=(p?.subtasks||[]).map(s=>s.text).join("\n");
+ opsModal.classList.add("open");
+}
+function closeOpsModal(){opsModal.classList.remove("open")}
+function saveOpsProject(){
+ const module=opsEditing.module,name=opsName.value.trim();if(!module||!name){alert("請輸入專案名稱");return}
+ const old=opsEditing.id?(opsData[module]||[]).find(x=>x.id===opsEditing.id):null;
+ const subtasks=opsSubtasks.value.split("\n").map(x=>x.trim()).filter(Boolean).map(text=>{
+  const found=(old?.subtasks||[]).find(s=>s.text===text);return found||{text,progress:0,dueDate:""};
+ });
+ const obj={id:opsEditing.id||("op_"+Date.now()),name,type:opsType.value.trim(),status:opsStatus.value,priority:opsPriority.value,date:opsDate.value,owner:opsOwner.value.trim(),next:opsNext.value.trim(),block:opsBlock.value.trim(),subtasks,links:old?.links||[]};
+ if(opsEditing.id){const i=opsData[module].findIndex(x=>x.id===opsEditing.id);opsData[module][i]=obj}else opsData[module].unshift(obj);
+ saveOpsState(module);closeOpsModal();renderOpsModule(module);
+}
+function deleteOpsProject(module,id){
+ const p=opsData[module].find(x=>x.id===id);if(!confirm(`確定刪除「${p?.name||"此專案"}」？`))return;
+ opsData[module]=opsData[module].filter(x=>x.id!==id);saveOpsState(module);renderOpsModule(module);
+}
+function updateOpsSubtask(module,id,index,field,value){
+ const p=opsData[module].find(x=>x.id===id);if(!p||!p.subtasks[index])return;
+ p.subtasks[index][field]=field==="progress"?Math.max(0,Math.min(100,Number(value)||0)):value;
+ const avg=opsAverage(p);if(avg===100)p.status="已完成";else if(p.status==="已完成")p.status="進行中";
+ saveOpsState(module);renderOpsModule(module);
+}
+function addOpsLink(module,id){
+ const type=prompt("連結類型：\nGoogle Drive／Google Sheet／Google 表單／Google 簡報／Canva／其他","Google Drive");if(!type)return;
+ const name=prompt("連結名稱","專案雲端資料");if(!name)return;
+ const url=prompt("貼上完整網址（https:// 開頭）","https://");if(!url||!/^https?:\/\//i.test(url)){alert("請輸入有效網址");return}
+ const p=opsData[module].find(x=>x.id===id);if(!p)return;p.links=p.links||[];p.links.push({id:"ln_"+Date.now(),type,name,url});
+ saveOpsState(module);renderOpsModule(module);
+}
+function deleteOpsLink(module,id,linkId){
+ const p=opsData[module].find(x=>x.id===id);if(!p)return;p.links=(p.links||[]).filter(x=>x.id!==linkId);saveOpsState(module);renderOpsModule(module);
+}
+function renderOpsModule(module){
+ const listRoot=document.getElementById(module+"OpsList");if(!listRoot)return;
+ const all=opsData[module]||[],q=(document.getElementById(module+"OpsSearch")?.value||"").toLowerCase(),f=document.getElementById(module+"OpsFilter")?.value||"";
+ const filtered=all.filter(p=>(!f||p.status===f)&&(!q||[p.name,p.type,p.owner,p.next].join(" ").toLowerCase().includes(q)));
+ document.getElementById(module+"OpsTotal").innerHTML=`${all.length} <small>項</small>`;
+ document.getElementById(module+"OpsDoing").innerHTML=`${all.filter(p=>p.status==="進行中").length} <small>項</small>`;
+ document.getElementById(module+"OpsWaiting").innerHTML=`${all.filter(p=>p.status==="等待他人").length} <small>項</small>`;
+ document.getElementById(module+"OpsDone").innerHTML=`${all.filter(p=>p.status==="已完成").length} <small>項</small>`;
+ listRoot.innerHTML=filtered.map(p=>{
+  const avg=opsAverage(p);
+  return `<div class="pm-card">
+   <div class="pm-head"><div><div class="pm-title">${p.name}</div><div class="sub">${p.type||""}｜截止 ${p.date||"未定"}｜${p.owner||"未設定負責人"}</div></div>
+   <div class="pm-actions"><button class="icon-btn edit" onclick="openOpsModal('${module}','${p.id}')">編輯</button><button class="icon-btn delete" onclick="deleteOpsProject('${module}','${p.id}')">刪除</button></div></div>
+   <div style="margin-top:10px"><span class="pill ${pmPill(p.status)}">${p.status}</span> <span class="pill ${priorityPill(p.priority)}">${p.priority}優先</span></div>
+   <div class="progress" style="margin-top:10px"><div style="width:${avg}%"></div></div><div class="sub" style="margin-top:6px">子任務平均進度 ${avg}%</div>
+   ${p.next?`<div class="sub" style="margin-top:5px">下一步：${p.next}</div>`:""}${p.block?`<div class="notice" style="margin-top:10px"><b>卡點：</b>${p.block}</div>`:""}
+   <div class="checklist">${(p.subtasks||[]).map((s,i)=>`<div class="ops-progress-row">
+    <b>${s.text}</b>
+    <input class="ops-progress-input" type="number" min="0" max="100" value="${s.progress||0}" onchange="updateOpsSubtask('${module}','${p.id}',${i},'progress',this.value)" title="進度百分比">
+    <input class="ops-progress-input" type="date" value="${s.dueDate||""}" onchange="updateOpsSubtask('${module}','${p.id}',${i},'dueDate',this.value)">
+    <span class="pill ${Number(s.progress)>=100?"green":Number(s.progress)>0?"blue":"red"}">${Number(s.progress)||0}%</span>
+   </div>`).join("")||'<div class="sub">尚未建立子任務</div>'}</div>
+   <div class="ops-invite-box">
+    <div class="cloud-section-title">Email 對接與進度回覆</div>
+    <button class="btn btn-soft" onclick="openOpsInviteModal('${module}','${p.id}')">＋ 新增 Email 對接</button>
+    <button class="btn btn-soft" onclick="syncOpsReplies(true)" style="margin-left:6px">↻ 同步回覆</button>
+    <div class="ops-invite-list">${renderOpsInvites(module,p)}</div>
+   </div>
+   <div class="link-entry-box"><div class="cloud-section-title">Google 雲端與協作連結</div>
+    <button class="btn btn-soft" onclick="addOpsLink('${module}','${p.id}')">＋ 新增雲端連結</button>
+    <div class="cloud-links">${(p.links||[]).map(l=>`<div class="ops-link-row"><div><b>${l.type}｜${l.name}</b><div class="ops-link-url">${l.url}</div></div><div><button class="icon-btn cloud-open" onclick="window.open('${l.url.replace(/'/g,"%27")}','_blank')">開啟</button> <button class="icon-btn delete" onclick="deleteOpsLink('${module}','${p.id}','${l.id}')">刪除</button></div></div>`).join("")||'<div class="cloud-empty">尚未加入雲端連結</div>'}</div>
+   </div>
+  </div>`;
+ }).join("")||'<div class="card">目前沒有符合條件的專案。</div>';
+}
+function renderStoreProjects(){renderOpsModule("store")}
+
+/* ===== Email 對接（商品頁、月度圖文、拍攝、門市） ===== */
+const OPS_INVITE_KEY="umbrellaOpsInviteAdminV2";
+let opsInviteAdmin=[];
+try{opsInviteAdmin=JSON.parse(localStorage.getItem(OPS_INVITE_KEY)||"[]")||[]}catch(e){opsInviteAdmin=[]}
+let opsInviteEditing={module:null,projectId:null};
+
+function saveOpsInviteAdmin(){localStorage.setItem(OPS_INVITE_KEY,JSON.stringify(opsInviteAdmin))}
+function opsToken(){return "oi_"+Date.now().toString(36)+"_"+Math.random().toString(36).slice(2,10)}
+function opsInviteUrl(token){return location.href.split("#")[0]+"#ops-collab="+encodeURIComponent(token)}
+function opsPermissionLabels(list){
+ const m={progress:"進度",status:"執行狀態",dueDate:"預計完成日",message:"留言",resultUrl:"成果連結"};
+ return (list||[]).map(x=>m[x]||x).join("、");
+}
+function renderOpsInvites(module,p){
+ const rows=opsInviteAdmin.filter(x=>x.module===module&&x.projectId===p.id);
+ if(!rows.length)return '<div class="cloud-empty">目前沒有 Email 對接。</div>';
+ return rows.map(x=>`<div class="ops-invite-item ${x.unread?"confirm-updated":""}">
+  <b>${x.targetName||"整個專案"}</b>${x.unread?'<span class="updated-label">有更新</span>':""}
+  <div class="ops-invite-meta">${x.email}｜${x.status||"待回覆"}｜${opsPermissionLabels(x.permissions)}</div>
+  ${x.message?`<div class="ops-invite-latest"><b>最新留言：</b>${escapeHtmlOps(x.message)}${x.updatedAt?`<div class="ops-invite-meta">更新於 ${x.updatedAt}</div>`:""}</div>`:""}
+  <div class="confirm-actions">
+   <button class="icon-btn cloud-copy" onclick="navigator.clipboard.writeText('${x.url}').then(()=>alert('已複製邀請連結'))">複製連結</button>
+   <button class="icon-btn read-btn" onclick="markOpsInviteRead('${x.token}')">標記已讀</button>
+   <button class="icon-btn delete" onclick="deleteOpsInvite('${x.token}')">取消邀請</button>
+  </div>
+ </div>`).join("");
+}
+function escapeHtmlOps(v){return String(v||"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
+function openOpsInviteModal(module,projectId){
+ const p=(opsData[module]||[]).find(x=>x.id===projectId);if(!p)return;
+ opsInviteEditing={module,projectId};
+ opsInviteProjectName.value=p.name;
+ opsInviteTarget.innerHTML=`<option value="project">整個專案</option>`+(p.subtasks||[]).map((s,i)=>`<option value="subtask:${i}">子任務｜${s.text}</option>`).join("");
+ opsInviteEmail.value="";
+ [opsPermProgress,opsPermStatus,opsPermDue,opsPermMessage].forEach(x=>x.checked=true);opsPermResult.checked=false;
+ opsInviteModal.classList.add("open");
+}
+function closeOpsInviteModal(){opsInviteModal.classList.remove("open")}
+async function sendOpsInvite(){
+ const {module,projectId}=opsInviteEditing;
+ const p=(opsData[module]||[]).find(x=>x.id===projectId);if(!p)return;
+ const email=opsInviteEmail.value.trim().toLowerCase();
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){alert("請輸入正確 Email");return}
+ const target=opsInviteTarget.value;
+ const targetIndex=target.startsWith("subtask:")?Number(target.split(":")[1]):-1;
+ const targetName=targetIndex>=0?p.subtasks[targetIndex]?.text:"整個專案";
+ const permissions=[];
+ if(opsPermProgress.checked)permissions.push("progress");
+ if(opsPermStatus.checked)permissions.push("status");
+ if(opsPermDue.checked)permissions.push("dueDate");
+ if(opsPermMessage.checked)permissions.push("message");
+ if(opsPermResult.checked)permissions.push("resultUrl");
+ if(!permissions.length){alert("請至少開放一個欄位");return}
+ const token=opsToken(),url=opsInviteUrl(token);
+ const base=targetIndex>=0?p.subtasks[targetIndex]:null;
+ const record={token,module,projectId,projectName:p.name,target,targetIndex,targetName,email,permissions,
+  progress:targetIndex>=0?Number(base?.progress||0):opsAverage(p),status:p.status||"待開始",dueDate:targetIndex>=0?(base?.dueDate||""):(p.date||""),
+  message:"",resultUrl:"",createdAt:new Date().toLocaleString("zh-TW"),updatedAt:"",unread:false,url};
+ try{
+  await fetch(MARKETING_OS_MAIL_API,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},
+   body:JSON.stringify({action:"opsInvite",...record})});
+  opsInviteAdmin.unshift(record);saveOpsInviteAdmin();closeOpsInviteModal();renderOpsModule(module);
+  alert(`邀請已寄送至：${email}`);
+ }catch(e){console.error(e);alert("寄送失敗，請確認 Apps Script 已更新部署。")}
+}
+function markOpsInviteRead(token){const x=opsInviteAdmin.find(i=>i.token===token);if(x){x.unread=false;saveOpsInviteAdmin();renderOpsModule(x.module)}}
+function deleteOpsInvite(token){const x=opsInviteAdmin.find(i=>i.token===token);if(!x)return;if(!confirm("確定取消此邀請？"))return;opsInviteAdmin=opsInviteAdmin.filter(i=>i.token!==token);saveOpsInviteAdmin();renderOpsModule(x.module)}
+function jsonpOps(params){
+ return new Promise((resolve,reject)=>{
+  const cb="ops_cb_"+Date.now()+"_"+Math.random().toString(36).slice(2),s=document.createElement("script");
+  const t=setTimeout(()=>{cleanup();reject(new Error("讀取逾時"))},12000);
+  function cleanup(){clearTimeout(t);delete window[cb];s.remove()}
+  window[cb]=d=>{cleanup();resolve(d)};
+  s.src=MARKETING_OS_MAIL_API+"?"+new URLSearchParams({...params,callback:cb}).toString();
+  s.onerror=()=>{cleanup();reject(new Error("讀取失敗"))};document.head.appendChild(s);
+ });
+}
+async function syncOpsReplies(show=false){
+ try{
+  const r=await jsonpOps({action:"listOpsInvites"});if(!r?.success||!Array.isArray(r.invites))throw new Error(r?.error||"同步失敗");
+  let n=0;
+  r.invites.forEach(remote=>{
+   const local=opsInviteAdmin.find(x=>x.token===remote.token);if(!local)return;
+   const changed=String(local.updatedAt||"")!==String(remote.updatedAt||"")&&!!remote.updatedAt;
+   Object.assign(local,remote,{url:local.url});
+   if(changed){local.unread=true;n++;
+    const p=(opsData[local.module]||[]).find(x=>x.id===local.projectId);
+    if(p){
+     if(local.targetIndex>=0&&p.subtasks[local.targetIndex]){
+      if(local.permissions.includes("progress"))p.subtasks[local.targetIndex].progress=Number(remote.progress||0);
+      if(local.permissions.includes("dueDate"))p.subtasks[local.targetIndex].dueDate=remote.dueDate||"";
+     }else{
+      if(local.permissions.includes("status"))p.status=remote.status||p.status;
+      if(local.permissions.includes("dueDate"))p.date=remote.dueDate||p.date;
+     }
+     saveOpsState(local.module);
+    }
+   }
+  });
+  saveOpsInviteAdmin();["content","shooting","store"].forEach(renderOpsModule);
+  if(show)alert(n?`已同步 ${n} 筆更新。`:"目前沒有新的回覆。");
+ }catch(e){console.error(e);if(show)alert("同步失敗，請稍後再試。")}
+}
+async function loadOpsRestricted(){
+ const m=(location.hash||"").match(/^#ops-collab=(.+)$/);if(!m)return false;
+ document.querySelector(".app").style.display="none";opsRestrictedView.classList.add("open");
+ try{
+  const r=await jsonpOps({action:"getOpsInvite",token:decodeURIComponent(m[1])});if(!r?.success||!r.invite)throw new Error(r?.error||"找不到邀請");
+  const x=r.invite;
+  opsRestrictedContent.innerHTML=`<h2 style="margin-top:0">${escapeHtmlOps(x.projectName)}</h2>
+   <div class="sub">指派內容：${escapeHtmlOps(x.targetName)}｜授權 Email：${escapeHtmlOps(x.email)}</div>
+   <div class="ops-restricted-form">
+    ${x.permissions.includes("progress")?`<label>進度（0～100%）<input id="orProgress" type="number" min="0" max="100" value="${Number(x.progress||0)}"></label>`:""}
+    ${x.permissions.includes("status")?`<label>執行狀態<select id="orStatus"><option ${x.status==="待開始"?"selected":""}>待開始</option><option ${x.status==="進行中"?"selected":""}>進行中</option><option ${x.status==="等待他人"?"selected":""}>等待他人</option><option ${x.status==="已完成"?"selected":""}>已完成</option></select></label>`:""}
+    ${x.permissions.includes("dueDate")?`<label>預計完成日<input id="orDue" type="date" value="${x.dueDate||""}"></label>`:""}
+    ${x.permissions.includes("message")?`<label>留言給負責人（50 字以內）<textarea id="orMessage" maxlength="50" placeholder="請輸入最新進度或需要協助的事項">${escapeHtmlOps(x.message||"")}</textarea></label>`:""}
+    ${x.permissions.includes("resultUrl")?`<label>成果連結<input id="orResult" type="url" value="${escapeHtmlOps(x.resultUrl||"")}" placeholder="https://"></label>`:""}
+    <button class="btn" onclick="submitOpsRestricted('${x.token}')">送出進度</button>
+   </div>`;
+ }catch(e){opsRestrictedContent.innerHTML=`<b>邀請讀取失敗</b><div class="sub">${escapeHtmlOps(e.message)}</div>`}
+ return true;
+}
+async function submitOpsRestricted(token){
+ try{
+  await fetch(MARKETING_OS_MAIL_API,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({
+   action:"opsResponse",token,progress:Number(document.getElementById("orProgress")?.value||0),status:document.getElementById("orStatus")?.value||"",
+   dueDate:document.getElementById("orDue")?.value||"",message:String(document.getElementById("orMessage")?.value||"").slice(0,50),
+   resultUrl:document.getElementById("orResult")?.value||""
+  })});
+  alert("進度已送出，Marketing OS 會同步顯示。");
+ }catch(e){console.error(e);alert("送出失敗，請稍後再試。")}
+}
+setTimeout(()=>{if(!loadOpsRestricted())syncOpsReplies(false)},300);
+setInterval(()=>{if(!location.hash.startsWith("#ops-collab="))syncOpsReplies(false)},60000);
+
+["content","shooting","store"].forEach(renderOpsModule);
+document.querySelectorAll('nav button[data-page]').forEach(btn=>btn.addEventListener("click",()=>{const m=btn.dataset.page;if(["content","shooting","store"].includes(m))setTimeout(()=>renderOpsModule(m),0)}));
+
+</script>
+
+<div class="pm-modal" id="projectModal">
+ <div class="pm-box">
+  <h2 id="pmModalTitle" style="margin-top:0">新增專案</h2>
+  <div class="pm-form">
+   <label>專案名稱<input id="pmName" placeholder="例：秋季新品商品頁"></label>
+   <label>專案類型
+    <select id="pmType">
+     <option>商品頁企劃</option><option>月度圖文</option><option>拍攝素材</option>
+     <option>門市活動</option><option>LINE 營運</option><option>其他</option>
+    </select>
+   </label>
+   <label>狀態
+    <select id="pmStatus"><option>待開始</option><option>進行中</option><option>等待他人</option><option>已完成</option></select>
+   </label>
+   <label>優先度
+    <select id="pmPriority"><option>高</option><option>中</option><option>低</option></select>
+   </label>
+   <label>截止日<input id="pmDate" type="date"></label>
+   <label>進度（0～100）<input id="pmProgress" type="number" min="0" max="100" value="0"></label>
+   <label class="pm-full">下一步<textarea id="pmNext" placeholder="下一個具體動作"></textarea></label>
+   <label class="pm-full">卡點／等待事項<textarea id="pmBlock" placeholder="例：等待主管確認主視覺"></textarea></label>
+   <label class="pm-full">Google Sheet 連結<input id="pmSheetUrl" type="url" placeholder="貼上商品規格、進度表或數據表的 Google Sheet 網址"></label>
+   <label class="pm-full">Google 表單連結<input id="pmFormUrl" type="url" placeholder="貼上需求蒐集、回覆或審核用的 Google 表單網址"></label>
+   <label class="pm-full">其他 Google Drive／雲端連結<input id="pmCloudUrl" type="url" placeholder="貼上簡報、資料夾、文件或其他雲端網址"></label>
+   <div class="pm-full cloud-guide"><b>使用提醒：</b>連結會保存在目前瀏覽器。請確認連結的公司帳號權限已設定正確；本網頁不會取得或變更 Google 權限。</div>
+   <label class="pm-full">子任務（每行一項）<textarea id="pmSubtasks" placeholder="商品規格整理&#10;主副標確認&#10;主視覺製作&#10;上架"></textarea></label>
+  </div>
+  <div class="pm-modal-actions">
+   <button class="btn btn-soft" onclick="closeProjectModal()">取消</button>
+   <button class="btn" onclick="saveProject()">儲存專案</button>
+  </div>
+ </div>
+</div>
+
+<div class="pm-modal" id="topicModal"><div class="pm-box"><h2 style="margin-top:0">新增 Threads／脆熱門話題</h2><div class="topic-form"><label>週次<input id="topicWeek" type="week"></label><label class="topic-full">分類（可複選）
+<div id="topicCategoryPicker" class="category-picker">
+ <label class="check-tag"><input type="checkbox" value="防曬">防曬</label>
+ <label class="check-tag"><input type="checkbox" value="降溫">降溫</label>
+ <label class="check-tag"><input type="checkbox" value="下雨">下雨</label>
+ <label class="check-tag"><input type="checkbox" value="雨傘">雨傘</label>
+ <label class="check-tag"><input type="checkbox" value="通勤">通勤</label>
+ <label class="check-tag"><input type="checkbox" value="門市">門市</label>
+ <label class="check-tag"><input type="checkbox" value="品牌">品牌</label>
+ <label class="check-tag"><input type="checkbox" value="其他">其他</label>
+</div></label><label class="topic-full">話題標題<input id="topicTitle"></label><label>熱度分數（0～100）<input id="topicScore" type="number" min="0" max="100" value="70"></label><label>來源／連結<input id="topicSource"></label><label class="topic-full">內容摘要<textarea id="topicSummary"></textarea></label><label class="topic-full">與雨傘王的關聯<textarea id="topicRelevance"></textarea></label><label class="topic-full">建議切角<textarea id="topicAngle"></textarea></label></div><div class="pm-modal-actions"><button class="btn btn-soft" onclick="closeTopicModal()">取消</button><button class="btn" onclick="saveTopic()">儲存話題</button></div></div></div>
+
+<div class="pm-modal" id="storeModal">
+ <div class="pm-box">
+  <h2 id="storeModalTitle" style="margin-top:0">新增門市專案</h2>
+  <div class="pm-form">
+   <label>專案名稱<input id="storeName" placeholder="例：西門旗艦店反向傘陳列"></label>
+   <label>專案類型
+    <select id="storeType">
+     <option>門市陳列</option><option>促銷活動</option><option>門市物料</option>
+     <option>教育訓練</option><option>巡店改善</option><option>其他</option>
+    </select>
+   </label>
+   <label>適用門市<input id="storeLocation" placeholder="例：全台門市／西門店／捷運門市"></label>
+   <label>狀態
+    <select id="storeStatus"><option>待開始</option><option>進行中</option><option>等待他人</option><option>已完成</option></select>
+   </label>
+   <label>優先度
+    <select id="storePriority"><option>高</option><option>中</option><option>低</option></select>
+   </label>
+   <label>截止日<input id="storeDate" type="date"></label>
+   <label>進度（0～100）<input id="storeProgress" type="number" min="0" max="100" value="0"></label>
+   <label>負責／協作對象<input id="storeOwner" placeholder="例：自己、設計、門市主管"></label>
+   <label class="pm-full">下一步<textarea id="storeNext" placeholder="下一個具體動作"></textarea></label>
+   <label class="pm-full">卡點／等待事項<textarea id="storeBlock" placeholder="例：等待門市尺寸回覆"></textarea></label>
+   <label class="pm-full">子任務（每行一項）<textarea id="storeSubtasks" placeholder="確認陳列區尺寸&#10;完成看板設計&#10;門市執行回傳&#10;成效整理"></textarea></label>
+  </div>
+  <div class="pm-modal-actions">
+   <button class="btn btn-soft" onclick="closeStoreModal()">取消</button>
+   <button class="btn" onclick="saveStoreProject()">儲存專案</button>
+  </div>
+ </div>
+</div>
+
+
+<div class="pm-modal" id="homeTaskModal">
+ <div class="pm-box">
+  <h2 id="homeTaskModalTitle" style="margin-top:0">新增首頁任務</h2>
+  <div class="pm-form">
+   <label class="pm-full">任務名稱<input id="homeTaskName" placeholder="例：完成反向傘商說頁"></label>
+   <label>優先等級
+    <select id="homeTaskLevel">
+     <option value="P1">P1 緊急且重要</option>
+     <option value="P2">P2 重要</option>
+     <option value="P3">P3 一般</option>
+     <option value="P4">P4 可延後</option>
+    </select>
+   </label>
+   <label>狀態
+    <select id="homeTaskState">
+     <option value="open">未完成</option>
+     <option value="waiting">等待他人</option>
+     <option value="done">已完成</option>
+    </select>
+   </label>
+   <label>截止日<input id="homeTaskDate" type="date"></label>
+   <label>所屬板塊
+    <select id="homeTaskModule">
+     <option>商品頁企劃</option><option>月度圖文</option><option>拍攝與素材</option>
+     <option>門市陳列與活動</option><option>LINE 數據</option><option>主管回報</option><option>其他</option>
+    </select>
+   </label>
+   <label class="pm-full">任務說明<textarea id="homeTaskNote" placeholder="補充需求、交付標準或注意事項"></textarea></label>
+  </div>
+  <div class="pm-modal-actions">
+   <button class="btn btn-soft" onclick="closeHomeTaskModal()">取消</button>
+   <button class="btn" onclick="saveHomeTask()">儲存任務</button>
+  </div>
+ </div>
+</div>
+
+
+<div class="pm-modal" id="collabModal">
+ <div class="pm-box">
+  <h2 id="collabModalTitle" style="margin-top:0">新增聯名專案</h2>
+  <div class="pm-form">
+   <label>聯名名稱<input id="collabName" placeholder="例：吉伊卡哇"></label>
+   <label>合作類型
+    <select id="collabType">
+     <option>商品聯名</option><option>行銷合作</option><option>快閃活動</option>
+     <option>通路合作</option><option>內容合作</option><option>其他</option>
+    </select>
+   </label>
+   <label>狀態
+    <select id="collabStatus"><option>待開始</option><option>進行中</option><option>等待確認</option><option>已完成</option></select>
+   </label>
+   <label>優先度
+    <select id="collabPriority"><option>高</option><option>中</option><option>低</option></select>
+   </label>
+   <label>預計檔期<input id="collabDate" type="date"></label>
+   <label>進度（0～100）<input id="collabProgress" type="number" min="0" max="100" value="0"></label>
+   <label class="pm-full">合作目標<textarea id="collabGoal"></textarea></label>
+   <label class="pm-full">下一步<textarea id="collabNext"></textarea></label>
+   <label class="pm-full">卡點／待確認<textarea id="collabBlock"></textarea></label>
+   <label class="pm-full">子任務（每行一項）<textarea id="collabSubtasks"></textarea></label>
+  </div>
+  <div class="pm-modal-actions">
+   <button class="btn btn-soft" onclick="closeCollabModal()">取消</button>
+   <button class="btn" onclick="saveCollabProject()">儲存專案</button>
+  </div>
+ </div>
+</div>
+
+
+<div class="pm-modal" id="collabEmailGate">
+ <div class="pm-box" style="max-width:520px">
+  <h2 style="margin-top:0">驗證受邀 Email</h2>
+  <div class="notice">請輸入收到邀請的 Email。只有與邀請紀錄完全相同的 Email 才能進入指定欄位。</div>
+  <label style="display:grid;gap:6px;margin-top:14px;font-size:12px;color:var(--muted)">Email
+   <input id="collabEmailInput" type="email" style="border:1px solid var(--line);border-radius:10px;padding:10px" placeholder="name@company.com">
+  </label>
+  <div id="collabEmailError" class="confirm-error"></div>
+  <div class="pm-modal-actions"><button class="btn" onclick="verifyCollaboratorEmail()">驗證並進入</button></div>
+ </div>
+</div>
+
+</body>
+</html>
